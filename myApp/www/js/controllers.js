@@ -60,7 +60,23 @@ angular.module('starter.controllers', ['ionic'])
 	$ionicSideMenuDelegate.canDragContent(false);
 
 	$scope.guardarURL = function(datosServidor) {
-  	$state.go("app.playlists");
+  	var posicion = datosServidor.servidor.indexOf('http://');
+  	if (posicion == 0) {
+    	$rootScope.url = datosServidor.servidor;
+    	$state.go("app.playlists");
+  	} else if (posicion == -1) {
+    	$rootScope.url = 'http://' + datosServidor.servidor;
+    	$state.go("app.playlists");
+  	} else {
+    	var alertPopup = $ionicPopup.alert({
+				title: 'Error en la url',
+				template: '<p style="text-align:center;">La dirección que ha introducido no es una URL válida.</p>',
+				okText: 'Aceptar',
+				okType: 'button-assertive'
+			});
+  	}
+
+
 	}
 
 	$scope.verificarDedo = function(){
@@ -172,10 +188,10 @@ angular.module('starter.controllers', ['ionic'])
 
 		$rootScope.username = $scope.datosUsuario.username;
 		$rootScope.password = $scope.datosUsuario.password;
-		$http.get('http://aulapresencial.metodoconsultores.com/login/token.php?username='+ $scope.datosUsuario.username +'&password='+ $scope.datosUsuario.password +'&service=local_mobile').
+		$http.get($rootScope.url + '/login/token.php?username='+ $scope.datosUsuario.username +'&password='+ $scope.datosUsuario.password +'&service=local_mobile').
 			success(function(data) {
 				if (data.token != null){
-					$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + data.token + '&wsfunction=moodle_webservice_get_siteinfo&moodlewsrestformat=json').
+					$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + data.token + '&wsfunction=moodle_webservice_get_siteinfo&moodlewsrestformat=json').
 					success(function(info) {
 						$rootScope.token = data.token;
 						var urlfoto = info.siteurl + "/webservice" + (info.userpictureurl).substr(info.siteurl.length) + "?token=" + data.token;
@@ -204,7 +220,7 @@ angular.module('starter.controllers', ['ionic'])
 
 
 	var obtenerCurso = function(token, id) {
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + token + '&wsfunction=moodle_user_get_users_by_id&moodlewsrestformat=json&userids[0]=' + id).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + token + '&wsfunction=moodle_user_get_users_by_id&moodlewsrestformat=json&userids[0]=' + id).
 					success(function(infoUsuario) {
 						$rootScope.localidad = infoUsuario[0].city + ", " + infoUsuario[0].country;
 						$rootScope.enrolledcourses = infoUsuario[0].enrolledcourses;
@@ -265,12 +281,12 @@ angular.module('starter.controllers', ['ionic'])
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando contenido...'
 		});
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + token + '&wsfunction=core_course_get_contents&moodlewsrestformat=json&courseid=' + id).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + token + '&wsfunction=core_course_get_contents&moodlewsrestformat=json&courseid=' + id).
 			success(function(contenidoCurso) {
 				$scope.foros = contenidoCurso[2];
 				$scope.recursos = contenidoCurso[1];
 				$scope.teoria = contenidoCurso;
-				$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + token + '&wsfunction=local_mobile_get_completion_data&moodlewsrestformat=json&courseid=' + id + '&userid=' + $rootScope.usuario.userid).
+				$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + token + '&wsfunction=local_mobile_get_completion_data&moodlewsrestformat=json&courseid=' + id + '&userid=' + $rootScope.usuario.userid).
 					success(function(completo) {
 						$rootScope.estadoActividad = completo;
 						hide();
@@ -278,7 +294,7 @@ angular.module('starter.controllers', ['ionic'])
 
 			});
 		//var grupoGeneral = {'id':0, 'name':'Grupo general', 'description':"", 'descriptionformat':1};
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + token + '&wsfunction=core_enrol_get_enrolled_users&moodlewsrestformat=json&courseid=' + id).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + token + '&wsfunction=core_enrol_get_enrolled_users&moodlewsrestformat=json&courseid=' + id).
 			success(function(usuariosCurso) {
 				$rootScope.usuariosDelCurso = usuariosCurso;
 				$rootScope.userCurso = {};
@@ -305,7 +321,7 @@ angular.module('starter.controllers', ['ionic'])
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargango contenido...'
 		});
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forums_by_courses&moodlewsrestformat=json&courseids[0]=' + $rootScope.data.id).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forums_by_courses&moodlewsrestformat=json&courseids[0]=' + $rootScope.data.id).
 			success(function(foros) {
 				angular.forEach(foros, function(foro){
 					if (foro.cmid == recursoId){
@@ -320,7 +336,7 @@ angular.module('starter.controllers', ['ionic'])
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargango contenido...'
 		});
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forum_discussions_paginated&moodlewsrestformat=json&forumid=' + id).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forum_discussions_paginated&moodlewsrestformat=json&forumid=' + id).
 			success(function(entradasForo) {
 				angular.forEach(entradasForo.discussions, function(entradas){
 					$scope.abrirContenido("1", entradas.name + entradas.usermodifiedfullname, "1");
@@ -498,9 +514,9 @@ angular.module('starter.controllers', ['ionic'])
 	  	$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Añadiendo contacto...'
 		});
-	  	$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_create_contacts&moodlewsrestformat=json&userids[0]=' + id).
+	  	$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_create_contacts&moodlewsrestformat=json&userids[0]=' + id).
 					success(function(resultado) {
-						$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
+						$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
 							success(function(dataContactos) {
 								$rootScope.contactos = dataContactos;
 								$rootScope.contactosTotal = $rootScope.contactos.online.concat($rootScope.contactos.offline);
@@ -514,9 +530,9 @@ angular.module('starter.controllers', ['ionic'])
 	  	$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Eliminando contacto...'
 		});
-	  	$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_delete_contacts&moodlewsrestformat=json&userids[0]=' + id).
+	  	$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_delete_contacts&moodlewsrestformat=json&userids[0]=' + id).
 					success(function(resultado) {
-						$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
+						$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
 							success(function(dataContactos) {
 								$rootScope.contactos = dataContactos;
 								$rootScope.contactosTotal = $rootScope.contactos.online.concat($rootScope.contactos.offline);
@@ -527,7 +543,7 @@ angular.module('starter.controllers', ['ionic'])
   	};
 
 	$rootScope.$watch('token', function(){
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
 			success(function(dataContactos) {
 				$rootScope.contactos = dataContactos;
 				$rootScope.contactosTotal = $rootScope.contactos.online.concat($rootScope.contactos.offline);
@@ -540,10 +556,10 @@ angular.module('starter.controllers', ['ionic'])
 		});
 		$rootScope.mensajes = [];
 		$rootScope.usertoid = usertoid;
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=0').
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=0').
 			success(function(datoMensajesLeidos) {
 				$rootScope.menLeidos = datoMensajesLeidos;
-				$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=1').
+				$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=1').
 					success(function(datoMensajesNoLeidos) {
 						$rootScope.mensajes = $rootScope.menLeidos.messages.concat(datoMensajesNoLeidos.messages);
 				});
@@ -552,10 +568,10 @@ angular.module('starter.controllers', ['ionic'])
 	}
 
 	$interval(function(){
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + $rootScope.usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=0').
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + $rootScope.usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=0').
 			success(function(datoMensajesLeidos) {
 				$rootScope.menLeidos = datoMensajesLeidos;
-				$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + $rootScope.usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=1').
+				$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + $rootScope.usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=1').
 					success(function(datoMensajesNoLeidos) {
 						$rootScope.mensajes = $rootScope.menLeidos.messages.concat(datoMensajesNoLeidos.messages);
 				});
@@ -564,7 +580,7 @@ angular.module('starter.controllers', ['ionic'])
 	}, 1500);
 
 	$scope.enviarMensaje = function() {
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_send_instant_messages&moodlewsrestformat=json&messages[0][touserid]=' + $rootScope.usertoid + '&messages[0][text]=' + $scope.mensajeDeEnvio + '&messages[0][textformat]=0&messages[0][textformat]=4').
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_send_instant_messages&moodlewsrestformat=json&messages[0][touserid]=' + $rootScope.usertoid + '&messages[0][text]=' + $scope.mensajeDeEnvio + '&messages[0][textformat]=0&messages[0][textformat]=4').
 					success(function(resultado) {
 						if (resultado.msgid < 0){
 							$window.alert(resultado.errormessage);
@@ -608,7 +624,7 @@ angular.module('starter.controllers', ['ionic'])
 
 	var grupoGeneral = {'groupname':'Grupo general', 'groupid':0, 'courseid': $rootScope.data.id};
 	var gruposPertenece = function(i) {
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_my_groups&moodlewsrestformat=json&courseid=' + $rootScope.data.id + '&userid=' + $rootScope.usuario.userid).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_my_groups&moodlewsrestformat=json&courseid=' + $rootScope.data.id + '&userid=' + $rootScope.usuario.userid).
 					success(function(grupos) {
 						$rootScope.gruposCursos = grupos;
 						$rootScope.gruposCursos.push(grupoGeneral);
@@ -620,7 +636,7 @@ angular.module('starter.controllers', ['ionic'])
   						$ionicLoading.show({
   							template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Obteniendo eventos...'
 						});
-  						var url = 'http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_calendar_get_calendar_events&moodlewsrestformat=json&events[courseids][0]=' + $rootScope.data.id + urlCursos + '&options[timeend]=4000000000';
+  						var url = $rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_calendar_get_calendar_events&moodlewsrestformat=json&events[courseids][0]=' + $rootScope.data.id + urlCursos + '&options[timeend]=4000000000';
   						$http.get(url).
   							success(function(eventos) {
   							$rootScope.eventos = eventos;
@@ -681,7 +697,7 @@ angular.module('starter.controllers', ['ionic'])
 
 
 	  		var duracion = parseInt((fechaFinalInt - fechaInicioInt)/1000);
-	  			$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_add_calendar_event&moodlewsrestformat=json&name=' + $scope.evento.titulo + '&description=' + $scope.evento.descripcion +'&courseid=' + $rootScope.data.id +'&groupid=' + $scope.evento.gr.groupid + '&eventtype=course&timestart=' + parseInt(fechaInicio.getTime()/1000) + '&timeduration=' + duracion + '&visible=1').
+	  			$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_add_calendar_event&moodlewsrestformat=json&name=' + $scope.evento.titulo + '&description=' + $scope.evento.descripcion +'&courseid=' + $rootScope.data.id +'&groupid=' + $scope.evento.gr.groupid + '&eventtype=course&timestart=' + parseInt(fechaInicio.getTime()/1000) + '&timeduration=' + duracion + '&visible=1').
 					success(function(resultado) {
 						gruposPertenece(0);
 
@@ -868,7 +884,7 @@ angular.module('starter.controllers', ['ionic'])
 		fd.append('path', '/');
         fd.append('userfile', files[0]);
 
-        $http.post('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php', fd, {
+        $http.post($rootScope.url + '/webservice/rest/server.php', fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
@@ -895,7 +911,7 @@ angular.module('starter.controllers', ['ionic'])
 	}
 
   	$scope.obtenerArchivos = function(nivel) {
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_files_get_files&moodlewsrestformat=json&contextid='+ nivel +'&component=&filearea=&itemid=0&filepath=&filename=').
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_files_get_files&moodlewsrestformat=json&contextid='+ nivel +'&component=&filearea=&itemid=0&filepath=&filename=').
 					success(function(archivos) {
 						$rootScope.archivo = archivos;
 				});
@@ -905,7 +921,7 @@ angular.module('starter.controllers', ['ionic'])
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Obteniendo ficheros...'
 		});
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_files_get_files&moodlewsrestformat=json&contextid=' + $rootScope.contextoUsuario + '&component=user&filearea=private&itemid=0&filepath=&filename=').
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_files_get_files&moodlewsrestformat=json&contextid=' + $rootScope.contextoUsuario + '&component=user&filearea=private&itemid=0&filepath=&filename=').
 					success(function(privados) {
 						$rootScope.privado = privados;
 						var i = 0;
@@ -1005,7 +1021,7 @@ angular.module('starter.controllers', ['ionic'])
 	}
 
 
-  	$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forums_by_courses&moodlewsrestformat=json&courseids[0]=' + $rootScope.data.id).
+  	$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forums_by_courses&moodlewsrestformat=json&courseids[0]=' + $rootScope.data.id).
 			success(function(foros) {
 				$rootScope.forosDelCurso = foros;
 			});
@@ -1015,7 +1031,7 @@ angular.module('starter.controllers', ['ionic'])
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando...'
 		});
 		$rootScope.nombre = nombre;
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forum_discussions_paginated&moodlewsrestformat=json&forumid=' + id).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forum_discussions_paginated&moodlewsrestformat=json&forumid=' + id).
 			success(function(entradasForo) {
 				$rootScope.idForo = id;
 				$rootScope.entradasForo = entradasForo;
@@ -1029,7 +1045,7 @@ angular.module('starter.controllers', ['ionic'])
 		});
 		$rootScope.discussionNombre = nombre;
 		$rootScope.discussionId = id;
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forum_discussion_posts&moodlewsrestformat=json&discussionid=' + id).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forum_discussion_posts&moodlewsrestformat=json&discussionid=' + id).
 			success(function(discussionForo) {
 				$rootScope.discussionForo = discussionForo;
 				hide();
@@ -1132,7 +1148,7 @@ angular.module('starter.controllers', ['ionic'])
 	  	$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando...'
 		});
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_grades_get_grades&moodlewsrestformat=json&courseid=' + $rootScope.data.id + '&userids[0]=' + usuarioid).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_grades_get_grades&moodlewsrestformat=json&courseid=' + $rootScope.data.id + '&userids[0]=' + usuarioid).
 			success(function(calificaciones) {
 				$rootScope.notas = calificaciones;
 				hide();
@@ -1157,7 +1173,7 @@ angular.module('starter.controllers', ['ionic'])
 	  	$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando...'
 		});
-		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_grades_get_grades&moodlewsrestformat=json&courseid=' + $rootScope.data.id + '&userids[0]=' + usuarioid).
+		$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_grades_get_grades&moodlewsrestformat=json&courseid=' + $rootScope.data.id + '&userids[0]=' + usuarioid).
 			success(function(calificacionesProfesor) {
 				$rootScope.notasProfesor = calificacionesProfesor;
 				hide();
