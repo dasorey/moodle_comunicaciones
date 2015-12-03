@@ -53,6 +53,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     }
   })
 
+
   .state('app.post', {
     url: "/post",
     views: {
@@ -100,15 +101,26 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       }
     }
   })
-    .state('app.playlists', {
-      url: "/playlists",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/playlists.html",
-          controller: 'LoginInicio'
-        }
+
+  .state('app.playlists', {
+    url: "/playlists",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/playlists.html",
+        controller: 'LoginInicio'
       }
-    })
+    }
+  })
+
+  .state('app.servidor', {
+    url: "/servidor",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/servidor.html",
+        controller: 'LoginInicio'
+      }
+    }
+  })
 
 
   .state('app.single', {
@@ -141,5 +153,5 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/servidor');
 });

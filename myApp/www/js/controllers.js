@@ -8,7 +8,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.verCalendario = function() {
 		$rootScope.puedoVerCalendario = false;
 	};
-	
+
 	$scope.verificarDedo = function(){
 		$cordovaTouchID.authenticate("Por favor verifique su identidad").then(function() {
         	window.localStorage['pulgar'] = "pedirDedo";
@@ -18,7 +18,7 @@ angular.module('starter.controllers', ['ionic'])
 	    	window.localStorage['pulgar'] = "noPedirDedo";
     	});
     }
-    
+
     $scope.comprobarActivadoDedo = function() {
 	    if ((window.localStorage['usuarioTouchID'] == $rootScope.username) && (window.localStorage['passwordTouchID'] == $rootScope.password)) {
 		    return true;
@@ -26,8 +26,8 @@ angular.module('starter.controllers', ['ionic'])
 		    return false;
 	    }
     }
-	
-	 
+
+
 	$scope.alerta = function(check) {
 		if (check) {
 			var confirmPopup = $ionicPopup.confirm({
@@ -52,13 +52,17 @@ angular.module('starter.controllers', ['ionic'])
         	window.localStorage['passwordTouchID'] = "";
 		}
 	}
-	
+
 })
 
 .controller('LoginInicio', function($scope, $window, $state, $location, $rootScope, $ionicSideMenuDelegate, $http, $ionicLoading, $ionicPopup, $ionicPlatform, $cordovaTouchID, $cordovaDevice) {
-	
+
 	$ionicSideMenuDelegate.canDragContent(false);
-	
+
+	$scope.guardarURL = function(datosServidor) {
+  	$state.go("app.playlists");
+	}
+
 	$scope.verificarDedo = function(){
 		$cordovaTouchID.authenticate("Por favor verifique su identidad").then(function() {
 			if ((window.localStorage['nombre'] != $scope.datosUsuario.username) || (window.localStorage['contrasena'] != $scope.datosUsuario.password)) {
@@ -69,7 +73,7 @@ angular.module('starter.controllers', ['ionic'])
     	}, function (error) {
     	});
     }
-    
+
     $scope.comprobarPlataforma = function() {
 		$rootScope.platform = $cordovaDevice.getPlatform();
 		if ($rootScope.platform == "Android") {
@@ -78,7 +82,7 @@ angular.module('starter.controllers', ['ionic'])
 			return true;
 		}
 	}
-	
+
 	$scope.comprobarInicio = function() {
 		if (window.localStorage['nombre'] != null) {
 			$scope.usuarioLocal = window.localStorage['nombre'];
@@ -87,7 +91,7 @@ angular.module('starter.controllers', ['ionic'])
 			return false;
 		}
 	}
-	
+
 	$scope.loguearse = function(){
 		//Voy a comprobar si tiene soporte para Touch ID
 
@@ -95,21 +99,21 @@ angular.module('starter.controllers', ['ionic'])
 		$cordovaTouchID.checkSupport().then(function() {
 			//Si el usuario tiene soporte activamos el menú lateral
 			$rootScope.dedo = true;
-			
+
 			//Compruebo si el usuario tiene configuarado el Touch ID
 			if ((window.localStorage['usuarioTouchID'] == $scope.datosUsuario.username) && (window.localStorage['passwordTouchID'] ==$scope.datosUsuario.password)) {
-				
+
 				$scope.verificarDedo();
-				
+
 			} else {
-				
+
 				//El usuario no tiene activado el Touch ID
 				if ((window.localStorage['nombre'] != $scope.datosUsuario.username) || (window.localStorage['contrasena'] != $scope.datosUsuario.password)) {
 					$scope.showConfirm();
 				} else {
 					$scope.loguearse2();
 				}
-			} 
+			}
 		}, function (error) {
 			//El usuario no tiene soporte
     		if ((window.localStorage['nombre'] != $scope.datosUsuario.username) || (window.localStorage['contrasena'] != $scope.datosUsuario.password)) {
@@ -126,15 +130,15 @@ angular.module('starter.controllers', ['ionic'])
 			}
 		}
 	}
-	
-	
+
+
 	var hide = function(){
     	$ionicLoading.hide();
 	  };
-	
+
 	$scope.nombreDelUsuario = window.localStorage['nombre'] || "";
 	$scope.contrasenaDelUsuario = window.localStorage['contrasena'] || "";
-	
+
 	$scope.showConfirm = function() {
 			var confirmPopup = $ionicPopup.confirm({
 				title: 'Contraseña',
@@ -156,16 +160,16 @@ angular.module('starter.controllers', ['ionic'])
     			}
 			});
 	};
- 	
-		
+
+
 	$scope.loguearse2 =function() {
-		
+
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Verificando...',
 	    	animation: 'fade-in',
 			showBackdrop: false
 		});
-		
+
 		$rootScope.username = $scope.datosUsuario.username;
 		$rootScope.password = $scope.datosUsuario.password;
 		$http.get('http://aulapresencial.metodoconsultores.com/login/token.php?username='+ $scope.datosUsuario.username +'&password='+ $scope.datosUsuario.password +'&service=local_mobile').
@@ -194,11 +198,11 @@ angular.module('starter.controllers', ['ionic'])
 				}
 
   		});
-		
-	};
-	
 
-	
+	};
+
+
+
 	var obtenerCurso = function(token, id) {
 		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + token + '&wsfunction=moodle_user_get_users_by_id&moodlewsrestformat=json&userids[0]=' + id).
 					success(function(infoUsuario) {
@@ -207,20 +211,20 @@ angular.module('starter.controllers', ['ionic'])
 						hide();
 					});
 	};
-	
+
 	$scope.pasar_informacion = function(curso, data) {
 		$rootScope.data = curso;
 		$rootScope.puedoVerCalendario = true;
 	};
-	
+
 })
 
-.controller('CursoDetalle', function($scope, $window, $stateParams, $ionicSideMenuDelegate, $anchorScroll, $location, $rootScope, $http, $ionicLoading, $sce, $templateCache) { 
-	
+.controller('CursoDetalle', function($scope, $window, $stateParams, $ionicSideMenuDelegate, $anchorScroll, $location, $rootScope, $http, $ionicLoading, $sce, $templateCache) {
+
 	$ionicSideMenuDelegate.canDragContent(true);
 	$rootScope.userCurso = {};
 	$rootScope.UsuarioAutorizado = 0
-	
+
 	$scope.unidad = function(text) {
 		var posicion = String(text).indexOf(". ");
 		if (posicion > 0) {
@@ -237,18 +241,18 @@ angular.module('starter.controllers', ['ionic'])
 			return "";
 		}
 	}
-	
+
 	var hide = function(){
     	$ionicLoading.hide();
 	  };
-	
+
 	$rootScope.$watch('data', function(){
 		$scope.color = [true, false, false];
 		obtenerContenidoCurso($rootScope.token, $rootScope.data.id);
 	})
-	
+
 	$rootScope.unidadaMostrar = 0;
-	
+
 	$scope.verUnidad = function (id) {
 		if ($rootScope.unidadMostrar == id) {
 			$rootScope.unidadMostrar = 0;
@@ -256,7 +260,7 @@ angular.module('starter.controllers', ['ionic'])
 			$rootScope.unidadMostrar = id;
 		}
 	}
-	
+
 	var obtenerContenidoCurso = function(token, id) {
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando contenido...'
@@ -289,14 +293,14 @@ angular.module('starter.controllers', ['ionic'])
 									$rootScope.UsuarioAutorizado = 1;
 								}
 							});
-							
+
 						}
 				});
 				hide();
-			});	
+			});
 	};
-	
-	
+
+
 	$scope.verRecurso = function(recursoId) {
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargango contenido...'
@@ -311,7 +315,7 @@ angular.module('starter.controllers', ['ionic'])
 				hide();
 			});
 	};
-	
+
 	var obtenerEntradasForo = function(id) {
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargango contenido...'
@@ -324,7 +328,7 @@ angular.module('starter.controllers', ['ionic'])
 				hide();
 			});
 	};
-	
+
 	$scope.getClass = function(tipoContenido) {
 		if (tipoContenido == "contenidos") {
 			return ("md md-insert-drive-file");
@@ -346,11 +350,11 @@ angular.module('starter.controllers', ['ionic'])
 			return ("md md-error");
 		}
 	}
-		
+
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
   	}
-	
+
 	$scope.mostrar_apartado = function(col) {
 		if (col == "col1") {
 			$scope.color = [true, false, false];
@@ -360,22 +364,22 @@ angular.module('starter.controllers', ['ionic'])
 			$scope.color = [false, false, true];
 		}
 	}
-	
+
     $rootScope.$watch('unidad', function(){
 	  $location.hash($rootScope.unidad);
       $anchorScroll();
 	});
-	
+
 	var loadScript = function (texto) {
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.innerHTML = texto;
         document.body.appendChild(script);
     }
-    
+
     var ref = null;
-   
-	
+
+
     $scope.abrirContenido = function(url) {
 
 		ref = window.open(encodeURI(url),"_blank",'location=no,closebuttoncaption=Cerrar,enableViewportScale=no, hidden=yes');
@@ -385,11 +389,11 @@ angular.module('starter.controllers', ['ionic'])
 		ref.addEventListener('loadstop', function() {
 		ref.insertCSS({code: "body {background: white !important;} header {display: none  !important;} #page-footer {display: none  !important;} #block-region-side-pre {display: none  !important;} #page-navbar {display: none  !important;} #newmessageoverlay {display: none  !important;} .contenidos-botonera {display: none  !important;}"});
 			ref.executeScript({code: "var elem = document.getElementById('username');elem.value = '" + $rootScope.username + "';var pass = document.getElementById('password'); pass.value = '" + $rootScope.password + "'; document.getElementById('login').submit();"});
-			
+
 		});
 
     }
-    
+
     $scope.comprobarCompleto = function(id){
 	    var res = 0;
 	    angular.forEach($rootScope.estadoActividad, function(actividad){
@@ -403,16 +407,16 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 .controller('Leccion', function($scope, $rootScope, $ionicSideMenuDelegate, $sce, $window, $ionicLoading) {
-	
+
 	$scope.numeroIntentos = 3;
 	$scope.examen = $sce.trustAsHtml('<h3>Pregunta 1</h3>'+
-	'<p>Texto de la pregunta, que escribo vagamente para que ocupe unas cuantas líneas y así comprobar el formato de párrafo.</br></p>' + 
+	'<p>Texto de la pregunta, que escribo vagamente para que ocupe unas cuantas líneas y así comprobar el formato de párrafo.</br></p>' +
 	'<form>Seleccione una:</br><input type="radio" name="opcion" value="opcion1"><label>Opción 1</label><br>'+
 	'<input type="radio" name="opcion" value="opcion2"><label for="id2">Opción 2</label><br>'+
 	'<input id="id3" type="radio" name="opcion" value="opcion3"><label>Opción 3</label><br>'+
 	'</form>');
-	
-	
+
+
 	$rootScope.$watch('titulo', function(){
 		if ($rootScope.titulo == "Contenido") {
 			$scope.tipoContenido = [true, false, false, false];
@@ -420,15 +424,15 @@ angular.module('starter.controllers', ['ionic'])
 			$scope.tipoContenido = [false, true, true, false];
 		}
 	});
-	
+
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
   	}
-  	
+
   	$scope.volverUnidad = function(unidad) {
 	  	$rootScope.unidad = unidad;
   	}
-  	
+
   	$scope.comenzarActividad = function(){
 	  	$scope.numeroIntentos = $scope.numeroIntentos -1;
 	  	$scope.tipoContenido = [false, true, false, true];
@@ -437,22 +441,22 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 .controller('Mensajes', function($scope, $rootScope, $ionicSideMenuDelegate, $sce, $window,  $http, $ionicScrollDelegate, $interval, $ionicActionSheet, $ionicModal, $ionicLoading) {
-	
+
 	$scope.mensajeDeEnvio = "";
 	$ionicSideMenuDelegate.canDragContent(true);
-	
+
 	var hide = function(){
     	$ionicLoading.hide();
 	  };
-	
+
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
   	}
-  	
+
   	$scope.htmlToPlaintext = function(text) {
 		return String(text).replace(/<[^>]+>/gm, '');
 	}
- 
+
 	$scope.showModal = function(templateUrl) {
 		$ionicModal.fromTemplateUrl(templateUrl, {
 			scope: $scope,
@@ -462,15 +466,15 @@ angular.module('starter.controllers', ['ionic'])
 			$scope.modal.show();
 		});
 	}
- 
+
 	// Close the modal
 	$scope.closeModal = function() {
 		$scope.modal.hide();
 		$scope.modal.remove()
 	};
-  	
+
   	$scope.gestionUsuarios = function() {
-    
+
     $ionicActionSheet.show({
       	//titleText: 'Opciones',
 	  	buttons: [{ text: 'Añadir Contacto' }, { text: 'Eliminar Contacto' }],
@@ -481,7 +485,7 @@ angular.module('starter.controllers', ['ionic'])
 			  	$scope.showModal('templates/anhadir_contacto.html');
 		  	} else if (index == 1) {
 			  	$scope.showModal('templates/eliminar_contacto.html');
-		  	} 
+		  	}
 			return true;
       	},
 	  	destructiveButtonClicked: function() {
@@ -489,7 +493,7 @@ angular.module('starter.controllers', ['ionic'])
       	}
     });
   	};
-  	
+
   	$scope.nuevoContacto = function(id) {
 	  	$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Añadiendo contacto...'
@@ -505,7 +509,7 @@ angular.module('starter.controllers', ['ionic'])
 						$scope.closeModal();
 				});
   	};
-  	
+
   	$scope.eliminarContacto = function(id) {
 	  	$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Eliminando contacto...'
@@ -521,15 +525,15 @@ angular.module('starter.controllers', ['ionic'])
 						hide();
 				});
   	};
-  	
+
 	$rootScope.$watch('token', function(){
 		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
 			success(function(dataContactos) {
 				$rootScope.contactos = dataContactos;
 				$rootScope.contactosTotal = $rootScope.contactos.online.concat($rootScope.contactos.offline);
 		});
-	});	
-	
+	});
+
 	$scope.verMensajes = function(usertoid) {
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Obteniendo mensajes...'
@@ -546,7 +550,7 @@ angular.module('starter.controllers', ['ionic'])
 			hide();
 			});
 	}
-	
+
 	$interval(function(){
 		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_message_get_messages&moodlewsrestformat=json&useridfrom=' + $rootScope.usertoid + '&useridto=' + $rootScope.usuario.userid + '&read=0').
 			success(function(datoMensajesLeidos) {
@@ -556,9 +560,9 @@ angular.module('starter.controllers', ['ionic'])
 						$rootScope.mensajes = $rootScope.menLeidos.messages.concat(datoMensajesNoLeidos.messages);
 				});
 			});
-		
+
 	}, 1500);
-	
+
 	$scope.enviarMensaje = function() {
 		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_send_instant_messages&moodlewsrestformat=json&messages[0][touserid]=' + $rootScope.usertoid + '&messages[0][text]=' + $scope.mensajeDeEnvio + '&messages[0][textformat]=0&messages[0][textformat]=4').
 					success(function(resultado) {
@@ -568,38 +572,38 @@ angular.module('starter.controllers', ['ionic'])
 							$scope.verMensajes($rootScope.usertoid);
 							$scope.mensajeDeEnvio = "";
 						}
-						
+
 					});
 
 	}
-  	
+
 })
 
 
 .controller('Calendario', function($scope, $rootScope, $window, $http, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaCalendar) {
-	
+
 	$scope.currentDate = new Date();
 	$ionicSideMenuDelegate.canDragContent(true);
-	
+
 	$scope.htmlToPlaintext = function(text) {
 		return String(text).replace(/<[^>]+>/gm, '');
 	}
-	
-	
-	
+
+
+
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
 	}
-	
+
 	var hide = function(){
     	$ionicLoading.hide();
 	  };
-	 
+
 	$scope.obtenerMes = function(mes){
 		var fecha = new Date(mes * 1000);
 		return (String(fecha.getMonth() + 1));
 	}
-	
+
 	var urlCursos = "";
 
 	var grupoGeneral = {'groupname':'Grupo general', 'groupid':0, 'courseid': $rootScope.data.id};
@@ -626,7 +630,7 @@ angular.module('starter.controllers', ['ionic'])
 						});
 					});
 	};
-	
+
 	$scope.mostrarEvento = function (inicio, duracion){
 		if ((inicio + duracion) > ($scope.currentDate/1000)) {
 			return true;
@@ -634,11 +638,11 @@ angular.module('starter.controllers', ['ionic'])
 			return false;
 		}
 	}
-	
+
 	$rootScope.$watch('data', function() {
 		gruposPertenece(0);
 	});
-	
+
 	$scope.evento = {};
 
 	// Create the login modal that we will use later
@@ -658,13 +662,13 @@ angular.module('starter.controllers', ['ionic'])
 	  	$rootScope.esEvento = false;
     	$scope.modal.show();
   	};
-  	
+
   	$scope.verEvento = function(evento) {
 	  	$rootScope.esEvento = true;
 	  	$rootScope.eventoMostrar = evento;
   		$scope.modal.show();
   	}
-  	
+
 
   	// Perform the login action when the user submits the login form
   	$scope.crearEvento = function() {
@@ -672,10 +676,10 @@ angular.module('starter.controllers', ['ionic'])
 	  	var fechaFinal = new Date($scope.evento.fin);
 	  	var fechaFinalInt = parseInt(fechaFinal.getTime());
 	  	var fechaInicioInt = parseInt(fechaInicio.getTime());
-	  	
+
 	  	if (($scope.evento.titulo != null) && ($scope.evento.descripcion != null) && ($scope.evento.gr != null) && ($scope.evento.inicio != null) && ($scope.evento.fin != null) && (fechaFinalInt > fechaInicioInt)) {
-	  		
-	  	
+
+
 	  		var duracion = parseInt((fechaFinalInt - fechaInicioInt)/1000);
 	  			$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_add_calendar_event&moodlewsrestformat=json&name=' + $scope.evento.titulo + '&description=' + $scope.evento.descripcion +'&courseid=' + $rootScope.data.id +'&groupid=' + $scope.evento.gr.groupid + '&eventtype=course&timestart=' + parseInt(fechaInicio.getTime()/1000) + '&timeduration=' + duracion + '&visible=1').
 					success(function(resultado) {
@@ -698,7 +702,7 @@ angular.module('starter.controllers', ['ionic'])
      		});
 		};
   };
-  
+
   $scope.anadirCalendarioTelefono = function() {
 	  	var fecha = $rootScope.eventoMostrar.timestart * 1000;
 		var fecha_inicio = new Date(fecha);
@@ -711,7 +715,7 @@ angular.module('starter.controllers', ['ionic'])
     			calendarName: 'Calendario Método',
 				calendarColor: '#279dcc'
 			}).then(function (result) {
-			
+
 				$cordovaCalendar.createEventInNamedCalendar({
 					title: nombre,
 					location: 'Rúa Aragón 82, Vigo',
@@ -740,7 +744,7 @@ angular.module('starter.controllers', ['ionic'])
 					template: 'Hubo un error creando el calendario \"Calendario Método\"',
 					okText: 'Aceptar',
 					okType: 'button-assertive'
-				});	
+				});
 			});
 		} else {
 			$cordovaCalendar.createEventInteractively({
@@ -760,25 +764,25 @@ angular.module('starter.controllers', ['ionic'])
 			});
 		};
 	};
-	
-  	
+
+
 })
 
 .controller('Archivos', function($scope, $rootScope, $ionicSideMenuDelegate, $http, $window, $ionicModal, $ionicActionSheet, $state, $sce, $ionicLoading, $ionicPopup) {
-	
+
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
   	}
-  	
+
   	var hide = function(){
     	$ionicLoading.hide();
 	  };
-  	
+
   	$scope.showImages = function(src) {
 		$scope.imagen = $sce.trustAsResourceUrl(src);
 		$scope.showModal('templates/ver_recurso.html');
 	}
- 
+
 	$scope.showModal = function(templateUrl) {
 		$ionicModal.fromTemplateUrl(templateUrl, {
 			scope: $scope,
@@ -788,9 +792,9 @@ angular.module('starter.controllers', ['ionic'])
 			$scope.modal.show();
 		});
 	}
-	
+
 	$scope.getClass = function(urlRecurso) {
-		
+
 		if (angular.lowercase(urlRecurso).indexOf(".pdf") > 0) {
 			return ("md md-attach-file rosa");
 		} else if ((angular.lowercase(urlRecurso).indexOf(".mov") > 0) || (angular.lowercase(urlRecurso).indexOf(".mp4") > 0) || (angular.lowercase(urlRecurso).indexOf(".avi") > 0)){
@@ -801,29 +805,29 @@ angular.module('starter.controllers', ['ionic'])
 			return ("md md-folder-open rosa");
 		}
 	};
- 
+
 	// Close the modal
 	$scope.closeModal = function() {
 		$scope.modal.hide();
 		$scope.modal.remove()
 	};
-	
+
 	$scope.esVideo = false;
-	
+
 	$scope.showActionsheet = function(urlRecurso) {
-    
+
     if (angular.lowercase(urlRecurso).indexOf(".pdf") > 0) {
 	    var botones = [{ text: 'Descargar' }];
     } else {
 	    var botones = [{ text: 'Descargar' }, { text: 'Ver' }];
     };
-    
+
 	if ((angular.lowercase(urlRecurso).indexOf(".mov")  > 0) || (angular.lowercase(urlRecurso).indexOf(".mp4") > 0) || (angular.lowercase(urlRecurso).indexOf(".avi") > 0)) {
 	    $scope.esVideo = true;
 	} else {
 		$scope.esVideo = false;
     };
-    
+
     $ionicActionSheet.show({
       	//titleText: 'Opciones',
 	  	buttons: botones,
@@ -841,9 +845,9 @@ angular.module('starter.controllers', ['ionic'])
 			return true;
       	}
     });
-    
+
   	};
-  	
+
 	$scope.exturl = function(urlRecurso) {
   		var url = urlRecurso;
   		if (url.indexOf(".pdf") > 0) {
@@ -852,7 +856,7 @@ angular.module('starter.controllers', ['ionic'])
 	  		$scope.showImages(url);
   		};
   	};
-	
+
 	$scope.uploadFile = function(files){
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Subiendo...'
@@ -863,7 +867,7 @@ angular.module('starter.controllers', ['ionic'])
 		fd.append('wsfunction', 'local_mobile_upload_file');
 		fd.append('path', '/');
         fd.append('userfile', files[0]);
-        
+
         $http.post('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php', fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
@@ -887,16 +891,16 @@ angular.module('starter.controllers', ['ionic'])
 	        }
 	        hide()
         });
-		
+
 	}
-  	
+
   	$scope.obtenerArchivos = function(nivel) {
 		$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_core_files_get_files&moodlewsrestformat=json&contextid='+ nivel +'&component=&filearea=&itemid=0&filepath=&filename=').
 					success(function(archivos) {
 						$rootScope.archivo = archivos;
 				});
 	};
-	
+
 	$scope.obtenerArchivosPrivados = function() {
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Obteniendo ficheros...'
@@ -913,10 +917,10 @@ angular.module('starter.controllers', ['ionic'])
 				hide();
 				});
 	};
-	
-	
-	
-	
+
+
+
+
 	$rootScope.$watch('contextoUsuario', function() {
 		$scope.obtenerArchivos(1);
 		$scope.obtenerArchivosPrivados();
@@ -925,19 +929,19 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 .controller('Foros', function($scope, $rootScope, $window, $http, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicModal, $ionicPopup, $sce, $ionicLoading) {
-	
+
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
   	}
-  	
+
   	var hide = function(){
     	$ionicLoading.hide();
 	  };
-  	
+
   	$scope.htmlToPlaintext = function(text) {
 		return String(text).replace(/<[^>]+>/gm, '');
 	}
-	
+
 	$scope.mensajeOriginal = function(text) {
 		var posicion = String(text).indexOf("(Editado");
 		if (posicion > 0) {
@@ -954,17 +958,17 @@ angular.module('starter.controllers', ['ionic'])
 			return "";
 		}
 	}
-	
+
 	$scope.abrirAdjunto = function(url) {
 		var ref = window.open(url + "?token=" + $rootScope.token ,"_system", "location=yes, closebuttoncaption=Close, enableViewportScale=yes, hidden=yes");
 	}
-	
+
 	$scope.showImages = function(id) {
 		$scope.tituloPost = id;
 		$scope.showModal('templates/responderPost.html');
-		
+
 	}
- 
+
 	$scope.showModal = function(templateUrl) {
 		$ionicModal.fromTemplateUrl(templateUrl, {
 			scope: $scope,
@@ -974,14 +978,14 @@ angular.module('starter.controllers', ['ionic'])
 			$scope.modal.show();
 		});
 	}
- 
+
 	// Close the modal
 	$scope.closeModal = function() {
 		$scope.modal.hide();
 		$scope.modal.remove()
 	};
 	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-	
+
 	$scope.crearPost = function(evento){
 		var datos = "wstoken=" + $rootScope.token + "&wsfunction=local_mobile_new_forum_post&action=reply&discussion=" + $rootScope.discussionId + "&parent=" + $scope.tituloPost + "&userid=" + $rootScope.usuario.userid + "&subject=Re: " + $scope.subject + "&message=" + evento.texto + "&forum=" + $rootScope.idForo + "&course=0";
 		$http.post("http://aulapresencial.metodoconsultores.com/webservice/rest/server.php", datos).
@@ -1000,12 +1004,12 @@ angular.module('starter.controllers', ['ionic'])
 			});
 	}
 
-  	
+
   	$http.get('http://aulapresencial.metodoconsultores.com/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forums_by_courses&moodlewsrestformat=json&courseids[0]=' + $rootScope.data.id).
 			success(function(foros) {
 				$rootScope.forosDelCurso = foros;
 			});
-	
+
 	$scope.verMensajes = function(id, nombre) {
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando...'
@@ -1018,7 +1022,7 @@ angular.module('starter.controllers', ['ionic'])
 				hide();
 			});
 	}
-	
+
 	$scope.verPost = function(id, nombre) {
 		$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando...'
@@ -1031,29 +1035,29 @@ angular.module('starter.controllers', ['ionic'])
 				hide();
 			});
 	}
-	
+
 	$scope.post = {};
 	var obtenerPost = function(id){
 		$scope.post = {}
 		angular.forEach($rootScope.discussionForo.posts, function(post){
 			if (post.id == id) {
 				$scope.post = post;
-			}		
+			}
 		});
 	};
-	
+
 	$scope.verImagenUsusario = function(enlace){
 		var link = enlace + '?token=' + $rootScope.token;
 		return link;
 	}
-	
+
 	$scope.responderPost = function(id){
 		$window.alert(id);
 	}
-	
+
 	$scope.hijoVisible = false;
 	$scope.cadenaRespuestas = [];
-	
+
 	$scope.numeroDeHijos = function() {
 		if ($scope.post.children.length > 0) {
 			return true;
@@ -1061,14 +1065,14 @@ angular.module('starter.controllers', ['ionic'])
 			return false;
 		}
 	}
-	
+
 	$scope.verHijos = function(hijos) {
 
 		var cadenaHijos = '';
 		angular.forEach(hijos, function(hijito){
 			obtenerPost(hijito);
 			var link = $scope.verImagenUsusario($scope.post.userpictureurl);
-			cadenaHijos = cadenaHijos + 
+			cadenaHijos = cadenaHijos +
 			'<div style="width: 100%; border-top: 1px dotted #55b2d7;margin-bottom:1px;"></div><span style="margin-left: 3%;  background-color: white; width: 100%;"><img src=' + link + ' style="border-radius: 50%; width: 3em; position:relative; top:10px;"/>'+
 				'<span class="familia_light" style="margin-left:10px; padding-top: 2%; display:inline-block; width: 100% background-color: white;">'+
 					'<span class="familia_light" style="font-size: 20px; color: #A8A8A8; line-height: 20px;">' + $scope.post.userfullname + '</span><br>'+
@@ -1084,8 +1088,8 @@ angular.module('starter.controllers', ['ionic'])
 		});
 		return $sce.trustAsHtml(cadenaHijos);
 	}
-	
-	
+
+
 	$scope.verPostRaiz = function(post){
 		if (post.parent == $scope.idPadre) {
 			return true;
@@ -1093,7 +1097,7 @@ angular.module('starter.controllers', ['ionic'])
 			return false;
 		};
 	}
-	
+
 	$scope.esPadre = function(post){
 		if (post.parent == 0) {
 			$scope.idPadre = post.id
@@ -1102,7 +1106,7 @@ angular.module('starter.controllers', ['ionic'])
 			return false;
 		};
 	}
-	
+
 	$scope.esElPost = function(post){
 		if (post.id == $scope.tituloPost) {
 			$scope.subject = $scope.htmlToPlaintext(post.message);
@@ -1111,19 +1115,19 @@ angular.module('starter.controllers', ['ionic'])
 			return false;
 		};
 	}
-	
+
 })
 
 .controller('Notas', function($scope, $rootScope, $window, $http, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicModal, $ionicPopup, $ionicLoading) {
-	
+
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
   	}
-  	
+
   	var hide = function(){
     	$ionicLoading.hide();
 	  };
-  	
+
   	$scope.cargarCalificaciones = function(usuarioid){
 	  	$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando...'
@@ -1135,20 +1139,20 @@ angular.module('starter.controllers', ['ionic'])
 			});
 
   	}
-  	
+
   	var verCalificaciones = function(){
 	  	if (!$rootScope.UsuarioAutorizado){
 	  		$scope.cargarCalificaciones($rootScope.usuario.userid);
   		}
   	}
-  	
+
   	verCalificaciones();
-  	
+
   	$rootScope.$watch('data', function(){
 	  	$rootScope.notas = {};
 	  	verCalificaciones();
   	})
-  	
+
   	$scope.cargarCalificacionesProfesor = function(usuarioid){
 	  	$ionicLoading.show({
 	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Cargando...'
@@ -1158,7 +1162,7 @@ angular.module('starter.controllers', ['ionic'])
 				$rootScope.notasProfesor = calificacionesProfesor;
 				hide();
 			});
-  	}	
+  	}
 })
 
 .controller('Certificados', function($scope, $rootScope, $ionicSideMenuDelegate, $sce, $window,  $http, $ionicScrollDelegate, $interval, $ionicActionSheet, $ionicModal, $ionicLoading) {
