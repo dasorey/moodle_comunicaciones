@@ -1,0 +1,64 @@
+<ion-view hide-nav-bar="true">
+
+	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="(platform != 'Android')"></div>
+	<img width="100%" ng-class="{posicion_24px:(platform != 'Android'), posicion_0px:(platform == 'Android')}" src="img/filigrana.png">
+	
+	<div style="height:100%; text-align: right; padding:0px; background-color: #279DCB;">
+		<i class="md md-menu md-3x" style="position:absolute; top: 9%; left:3%; color:white;" ng-click="toggleLeft()"></i>
+		<img style="height:12%; position:absolute; top: 7%; right: 0%;" src="img/logo_portada.png" >
+	</div>
+	
+	<ion-footer-bar style="height: 83%; background-color: #E9E9E9; padding: 0px;">
+	
+	<div class="item item-divider divisor_contenido">
+	  	<div style="height:100%; text-align:left;">
+	  		<i class="md md-home casa"></i>
+	  		<i class="md md-keyboard-arrow-right flecha flecha_posicion1"></i>
+	  		<a href="#/app/calendario" class="enlace_cabecera enlace_posicion1">Calendario</a>
+
+	  	</div>
+  	</div>
+
+	  	<p class="item item-divider titulo_actividad">Calendario</p>
+
+		<i class="md md-add nuevoEvento" ng-if="UsuarioAutorizado" ng-click="nuevoEvento()"></i>
+	<div style="position:absolute; top: 17%; left: 0px; width: 100%; height: 83%; background-color: white; overflow: scroll; -webkit-overflow-scrolling: touch;" >
+	  		<ion-list>
+	  			
+				<ion-item ng-repeat="evento in eventos.events | orderBy: 'timestart'" class="celda_curso" style="width:100%;" ng-if="mostrarEvento(evento.timestart, evento.timeduration)" ng-click="verEvento(evento)">
+					<span style="border-width: 0px; width: 100%; min-height: 85px; padding: 10px !important;" class="item item-text-wrap">
+						<span class="icon_lateral_contenido">
+							<div style="color: #279dcc; font-family: Roboto_regular; font-size: 1.8em; margin-top:20%; ">
+								{{evento.timestart * 1000 | date:"dd"}}
+							</div>
+							<div ng-switch=obtenerMes(evento.timestart)>
+								<div ng-switch-when="1" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">ENE</div>
+								<div ng-switch-when="2" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">FEB</div>
+								<div ng-switch-when="3" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">MAR</div>
+								<div ng-switch-when="4" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">ABR</div>
+								<div ng-switch-when="5" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">MAY</div>
+								<div ng-switch-when="6" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">JUN</div>
+								<div ng-switch-when="7" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">JUL</div>
+								<div ng-switch-when="8" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">AGO</div>
+								<div ng-switch-when="9" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">SEP</div>
+								<div ng-switch-when="10" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">OCT</div>
+								<div ng-switch-when="11" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">NOV</div>
+								<div ng-switch-when="12" style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">DIC</div>
+								<div ng-switch-default  style="color: #279dcc; font-family: Roboto_regular; font-size: 1.4em;line-height: 1.6em;">None</div>
+  							</div>
+  						</span>
+
+						<span class="item item-text-wrap" style="font-size: 1.2em; color: #F3565D; font-family: Roboto_regular; line-height: 1.2em; margin-left: 17%; width: 83%; padding: 0px; border: none;">{{htmlToPlaintext(evento.name)}}</span>
+						<p class="item item-text-wrap" style="font-size: 0.8em; text-align: right; color: #279dcc; font-family: Roboto_light; width: 83%; border: none; padding: 0px; position: absolute; right: 0px; padding: 5px !important; margin-top: 5px;">Inicio: {{evento.timestart * 1000 | date:"HH:mm (dd/MM/yy)"}} <span ng-if="(evento.timeduration > 0)">- Final: {{(evento.timestart + evento.timeduration) * 1000 | date:"HH:mm (dd/MM/yy)"}}</span></p>
+						<!--<span style="font-size: 1.2em; color: #A8A8A8; font-family: Roboto_light; line-height: 1.2em;" >{{htmlToPlaintext(evento.description)}}</span>-->
+						
+					</span>
+				</ion-item>
+
+
+			</ion-list>
+			
+  		</div>
+	
+	</ion-footer-bar>
+</ion-view>

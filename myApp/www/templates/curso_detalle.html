@@ -1,0 +1,95 @@
+<ion-view hide-nav-bar="true">
+	
+	<!-- Center content -->
+	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="(platform != 'Android')"></div>
+	<img width="100%" ng-class="{posicion_24px:(platform != 'Android'), posicion_0px:(platform == 'Android')}" src="img/filigrana.png">
+	
+	<div style="height:100%; text-align: right; padding:0px; background-color: #279DCB;">
+		<i class="md md-menu md-3x" style="position:absolute; top: 9%; left:3%; color:white;" ng-click="toggleLeft()"></i>
+		<img style="height:12%; position:absolute; top: 7%; right: 0%;" src="img/logo_portada.png" >
+	</div>
+	
+	<ion-footer-bar style="height: 83%; background-color: #E9E9E9; padding: 0px;" ng-controller="CursoDetalle">
+  		
+  		<div style="height: 60px; width: 100%; background-color: #E9E9E9; position: absolute; top: 0px; left: 0px;">
+			<p class="item item-divider titulo_curso_detalle">{{data.shortname}}</p>
+		</div>
+  		
+  		<div style="position:absolute; top: 0px; left: 0px; width:100%; height: 80px; margin-top:60px;">
+	  		
+	  		<div class="row" style="background-color: #F4F4F4; height: 100%; padding:0px;">
+	  			<div class="col col-33" ng-class="{'white': color[0], 'sombra': !color[0]}" ng-click="mostrar_apartado('col1')">
+		  			<div style=" position: absolute; top: 35%; width: 33.3%; text-align:center;">
+			  			<i class="md md-school md-3x" ng-class="{'icon_select': color[0], 'icon_unselect': !color[0]}"></i>	
+		  			</div>
+
+	  			</div>
+	  			<div class="col col-33" ng-class="{'white': color[1], 'sombra': !color[1]}" ng-click="mostrar_apartado('col2')">
+		  			<div style=" position: absolute; top: 35%; width: 33.3%; text-align:center;">
+			  			<i class="md md-forum md-3x" ng-class="{'icon_select': color[1], 'icon_unselect': !color[1]}"></i>	
+		  			</div>
+
+	  			</div>
+	  			<div class="col col-33" ng-class="{'white': color[2], 'sombra': !color[2]}" ng-click="mostrar_apartado('col3')">
+		  			<div style=" position: absolute; top: 35%; width: 33.3%; text-align:center;">
+			  			<i class="md md-wallet-travel md-3x" ng-class="{'icon_select': color[2], 'icon_unselect': !color[2]}"></i>	
+		  			</div>
+	  			</div>
+			</div>
+			
+  		</div>
+  		
+  		<div style="width: 100%; height: 100%; margin-top: 140px; padding-bottom: 140px !important; background-color: #eaeaea; overflow: scroll; -webkit-overflow-scrolling: touch;">
+			<ion-list ng-show="color[0]">
+			
+				<ion-item ng-repeat="curso in teoria" ng-if="$index > 2" style="padding:0px; border: none;">
+					
+					<div class="item item-divider" id="{{curso.name}}" ng-if="curso.modules[0] != null" ng-click="verUnidad(curso.id)" style="background-color: white; border-left: 7px solid #279DCB; margin-bottom: 1px;">
+						
+						<div class="item-text-wrap" style="width:85% !important; display: inline-block;">
+							<p style="text-align: left; font-family: Roboto_light;   line-height: 60px;"><i class="md md-turned-in-not md-1x" style="color: #279DCB; font-size: 20px;"></i> <span style="color: #279DCB; font-size: 20px;">{{unidad(curso.name)}}:</span><!--<br><span style="color: #A8A8A8; font-size: 1.2em;">- {{tituloUnidad(curso.name)}}</span>--></p>
+							 
+						</div>
+						<div style="width:15%; display: inline-block;" ng-if="!(unidadMostrar == curso.id)">
+							<i class="md md-keyboard-arrow-down md-2x" style="color: #279DCB;"></i>
+						</div>
+						<div style="width:15%; display: inline-block;" ng-if="(unidadMostrar == curso.id)">
+							<i class="md md-keyboard-arrow-up md-2x" style="color: #279DCB;"></i>
+						</div>
+					</div>
+					
+					<ion-item ng-repeat="celda in curso.modules" class="celda_curso" style="min-height: 60px; margin-bottom: 1px;" ng-click="abrirContenido(celda.url)" ng-if="(unidadMostrar == curso.id)" >
+						<span class="icon_lateral_contenido">
+						<i ng-class="getClass(celda.modname)" style="color:#88C9E2; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
+						</span>
+						<span style="display:inline-block; margin-left: 17%; border-width: 0px; background-color:transparent !important; width: 83%;" class="item item-text-wrap">
+						<span class="contenido_curso">{{celda.name}} <i class="md md-done" style="font-size: 1.6em; color: #9AC142; position: absolute; right: 10px;" ng-if="comprobarCompleto(celda.id)"></i></span></span>
+					</ion-item>
+					
+				</ion-item>
+			</ion-list>
+			
+			<ion-list ng-show="color[1]" has-bouncing="false">
+				<ion-item ng-repeat="foro in foros.modules" class="celda_curso" style="min-height:60px; min-width: 100px;  margin-bottom: 1px;" ng-click="abrirContenido(foro.url)">
+					<span class="icon_lateral_contenido">
+						<i ng-class="getClass(foro.modname)" style="color:#88C9E2; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
+					</span>
+					<span style="display:inline-block; margin-left: 17%; border-width: 0px; background-color:transparent !important; width: 100%;" class="item item-text-wrap">
+					<span class="contenido_curso">{{foro.name}}</span></span>
+				</ion-item>
+			</ion-list>
+			
+			<ion-list ng-show="color[2]">
+				<ion-item ng-repeat="recursos in recursos.modules" class="celda_curso" style="min-height:60px; min-width: 100px;  margin-bottom: 1px;" ng-click="abrirContenido(recursos.url)">
+					<span class="icon_lateral_contenido">
+						<i ng-class="getClass(recursos.modname)" style="color:#88C9E2; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
+					</span>
+					<span style="display:inline-block; margin-left: 17%; border-width: 0px; background-color:transparent !important; width: 100%;" class="item item-text-wrap">
+					<span class="contenido_curso">{{recursos.name}}</span></span>
+				</ion-item>
+			</ion-list>
+			
+		</div>
+	</ion-footer-bar>
+	
+</ion-view>

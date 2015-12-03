@@ -1,0 +1,47 @@
+<ion-view hide-nav-bar="true">
+	
+	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="(platform != 'Android')"></div>
+	
+	
+  	<div style=" width: 100%; background-color: rgba(153, 153, 161, 0.3);" ng-class="{contenido_cursos_24px:(platform != 'Android'), contenido_cursos_0px:(platform == 'Android')}" has-bouncing="true"></div>
+
+  
+  <ion-footer-bar class="datos_curso" ng-controller="LoginInicio" has-bouncing="true">
+  
+  
+  <!-- Área para la imagen del usuario-->
+  <div style="position: absolute; top: 7%; margin-left: auto; margin-right: auto; left: 0; right: 0; height:30%;">
+	  <img style="height:60%; border-radius:50%;" src={{usuario.userpictureurl}}>
+  </div>
+  
+  <!-- Área para los datos del usuario, nombre y localidad-->
+  <div style="position: absolute; top: 30%; left: 0px; margin:0px; height:16%; background-color: rgba(88,88,79,0.6); width:100%;">
+	  <span class="datos_personales_nombre">{{usuario.fullname}}</span>
+	  <span class="datos_personales_localidad">{{localidad}}</span>
+  </div>
+  
+  <!-- Área dedicaca al título de Mis Cursos-->
+  <div class="titulo_cursos">
+	  <img width="100%" style="position: absolute; top: 0px; left: 0px; margin:0px; max-height: 10px;" src="img/filigrana.png">
+	  <div style="height:100%; text-align: left; background-color: #279DCB;">
+		  <img style="height:100%; position:absolute; top: 15%;" src="img/logo_portada.png">
+	  </div>
+	  <span class="mis_cursos">Mis cursos</span>
+  </div>
+  
+  <!--Zona donde irán los cursos-->
+  <div class="cursos">
+	  <ion-list >
+      	<ion-item ng-repeat="curso in enrolledcourses" href="#/app/curso_detalle" class="celda_curso" ng-click="pasar_informacion(curso)" style="margin-bottom: 1px; height: 80px; padding: 0px !important;">
+        	<img src="img/logo_curso.png" height="60" width="60" style="display:inline-block; border-radius:50%; position:absolute; top: 10px; left: 10px;">
+			<div style="display:inline-block; border-width: 0px; width:100%; margin: 0px; background-color: transparent !important;  padding: 0px; padding-left: 70px;" class="item item-text-wrap">
+				<p class="cursos_titulo">{{curso.shortname}}</p>
+				<p class="cursos_descripcion">{{curso.fullname}}</p>
+			</div>
+		</ion-item>
+    </ion-list>
+  </div>
+  
+  </ion-footer-bar>
+  
+</ion-view>

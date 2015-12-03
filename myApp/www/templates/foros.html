@@ -1,0 +1,52 @@
+<ion-view hide-nav-bar="true">
+
+	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="(platform != 'Android')"></div>
+	<img width="100%" ng-class="{posicion_24px:(platform != 'Android'), posicion_0px:(platform == 'Android')}" src="img/filigrana.png">
+		
+	<div style="height:100%; text-align: right; padding:0px; background-color: #279DCB;">
+		<i class="md md-menu md-3x" style="position:absolute; top: 9%; left:3%; color:white;" ng-click="toggleLeft()"></i>
+		<img style="height:12%; position:absolute; top: 7%; right: 0%;" src="img/logo_portada.png" >
+	</div>
+	
+	<ion-footer-bar style="height: 83%; background-color: #E9E9E9; padding: 0px;">
+	
+	<div style="height: 85px; width: 100%; background-color: #E9E9E9; position: absolute; top: 0; left: 0px;">
+		<div style="height:25px; text-align:left; line-height: 25px;">
+			<i class="md md-home casa"></i>
+			<i class="md md-keyboard-arrow-right flecha"></i>
+			<a href="#/app/foros" class="enlace_cabecera">Foros</a>
+		</div>
+		
+		<div style="height: 60px; width: 100%; position: absolute; top: 25px; left: 0px;">
+			<p class="item item-divider titulo_curso_detalle">Foros</p>
+		</div>
+  	</div>
+	
+	<div style="width: 100%; height: 100%; margin-top:85px; padding-bottom: 85px !important;  background-color: white; overflow: scroll; -webkit-overflow-scrolling: touch; padding: 0px;" >
+	  		<ion-list>
+	  			
+				<ion-item ng-repeat="foro in forosDelCurso | orderBy: '-id'" class="celda_curso" style="margin-bottom: 1px; padding: 0px !important;" ng-click="verMensajes(foro.id, htmlToPlaintext(foro.name))" href="#/app/discussion">
+					<span class="icon_lateral_contenido" style="width: 80px !important; height: 80px;">
+						<i class="md md-people" style="font-size: 50px; line-height: 50px; width: 50px; height: 50px; position:absolute; top:15px; left:15px; color: #88C9E2;"></i>
+					</span>
+					<span style="padding: 0px !important; padding-left: 80px !important; border-width: 0px; background-color:transparent !important; height: 80px !important; padding-right: 30px !important;">
+						<span class="familia_light" style="font-size: 20px; color: #88C9E2; line-height: 20px;">
+							{{htmlToPlaintext(foro.name)}}
+						</span><br>
+						<span class="familia_light" style="font-size: 15px; color: #A8A8A8; line-height: 20px;padding-left: 80px;">
+							{{htmlToPlaintext(foro.intro)}}
+						</span>
+					</span>
+					<span style="position: absolute; right: 20px; top: 25px; width: 20px; height: 30px;">
+						<span class="familia_regular" style="color: #88C9E2; font-size: 20px;">{{foro.numdiscussions}}</span><i class="md md-insert-comment icono_respuesta rotate"></i>
+					</span>
+					
+				</ion-item>
+
+
+			</ion-list>
+			
+  		</div>
+	
+	</ion-footer-bar>
+</ion-view>

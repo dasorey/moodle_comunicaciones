@@ -1,0 +1,700 @@
+@font-face {
+    font-family: Roboto_light;
+    src: url("material-design-iconic-font/fonts/Roboto-Light.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: Roboto_regular;
+    src: url("material-design-iconic-font/fonts/Roboto-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: Roboto_bold;
+    src: url("material-design-iconic-font/fonts/Roboto-Bold.ttf") format('truetype');
+}
+
+.posicion_24px {
+	position: absolute; 
+	top: 24px; 
+	left: 0px; 
+	margin:0px; 
+	max-height: 10px;
+}
+
+.posicion_0px {
+	position: absolute; 
+	top: 0px; 
+	left: 0px; 
+	margin:0px; 
+	max-height: 10px;
+}
+
+.datos_login{
+	background:none;
+	padding: 0px; 
+	height: 100%; 
+	text-align:center;
+
+}
+
+.boton_login{
+	font-family: Roboto_regular;
+	background-color: #94ba41;
+	color:white; 
+	font-size: 1.8em !important;
+	border: none; 
+	width:100%; 
+	height: 100%;	
+}
+
+.item-container {
+	margin: 0;
+	min-height: 1px;
+	overflow: hidden;
+	padding: 36px 0 0 0;
+	position: relative;
+	width: 100%;
+}
+.list-sticky .item-divider {
+	bottom: auto;
+	left: 0;
+	line-height: 20px;
+	min-height: 1px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1000;
+}
+
+.item-divider.item-hidden {
+	visibility: hidden;
+}
+.item-container.item-animated .item-divider {
+	bottom: 0;
+	top: auto;
+}
+
+.input_login{
+	border-radius: 0px;
+	width: 100%;
+	font-size: 2em;
+	position: absolute;
+    top: 20%;
+    
+}
+
+.logo_input {
+    color:white;
+    width: 100%;
+    height: 100%;
+}
+
+.contenedor_boton_login{
+	width:100%;
+	padding:0px;
+	background-color: #94B941;
+	margin-top: 20px;
+	height: 40%;
+	min-height: 30px;
+}
+
+.contenido_cursos_24px{
+	background-image: url("../img/metodoimg2.jpg");
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 50%;
+	background-color: #cccccc;
+	margin-top:24px;
+}
+
+.contenido_cursos_0px{
+	background-image: url("../img/metodoimg2.jpg");
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 50%;
+	background-color: #cccccc;
+	margin-top:0px;
+}
+
+.datos_curso{
+	background: none;
+	height: 100%; 
+	text-align:center;
+	padding:0px;
+}
+
+.datos_personales_nombre {
+	font-family: Roboto_light;
+	font-size: 2.3em;
+	color: white;
+	position: absolute;
+	top: 25%;
+	width: 100%;
+	left: 0px;
+}
+
+.datos_personales_localidad {
+	font-family: Roboto_light;
+	font-size: 1.1em;
+	color: #F7B135;
+	position:absolute;
+	top: 55%;
+	left:0px;
+	width: 100%;
+}
+
+.mis_cursos {
+	font-family: Roboto_light;
+	font-size: 2.3em;
+	color: white;
+	width: 100%;
+	text-align: right;
+	position: absolute;
+	top: 45%;
+	right: 3%;
+}
+
+.item-complex .item-content {
+	background-color: transparent !important;
+}
+
+.titulo_cursos{
+	height: 12%;
+	width: 100%;
+	position:absolute;
+	top: 46%; 
+}
+
+.celda_curso {
+	border: none !important;
+	border-bottom: #279DCB dotted 1px !important;
+	padding: 0px !important;
+}
+.celda_curso:active{
+	background-color: transparent !important;
+}
+
+.celda_foro {
+	background-image: linear-gradient(white, #EAF5FA);
+}
+
+
+.cursos{
+	position:absolute;
+	top:58%;
+	height: 42%;
+	width: 100%;
+	background-color: white;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.cursos_titulo {
+	font-family: Roboto_regular;
+	font-size: 1em !important;
+	color: #F3565D !important;
+	text-align: left;
+	background-color: transparent !important;
+}
+
+.cursos_descripcion {
+	font-family: Roboto_light;
+	font-size: 0.7em !important;
+	color: #6b6b6b !important;
+	text-align: left;
+}
+
+.titulo_curso_detalle {
+	font-family: Roboto_bold; 
+	font-size: 30px;
+	padding: 0px;
+	padding-top: 15px;
+	height: 60px;
+	width: 100%;
+	text-align: center;
+	color: #52524F;
+	background-color: #EAF5FA;
+	border: 0px solid transparent;
+	line-height: 30px !important;
+}
+
+.white {
+	padding:0px;
+	background-color: white;
+}
+
+.sombra {
+	padding:0px;
+	background-image: linear-gradient(#f4f4f4, #eaeaea);
+}
+
+.icon_select{
+	color: #279DCB;
+}
+
+.icon_unselect{
+	color: #A8A8A8;
+}
+
+.icon_lateral_contenido {
+	width: 60px;
+	height: 60px;
+	background-color:#EAF5FA; 
+	display:inline-block; 
+	position: absolute; 
+	left: 0px; 
+	top: 0px; 
+	height: 100%; 
+	text-align:center;
+	margin: 0px;
+}
+
+.divisor {
+	color:#279DCB; 
+	font-family: Roboto_bold; 
+	text-align:center; 
+	font-size: 1.3em;
+}
+
+.contenido_curso {
+	font-family: Roboto_regular;
+	font-size: 1.0em !important;
+	color: #A8A8A8;
+	background-color: transparent !important;
+	width:100%;
+}
+
+.divisor{
+	width:100%; 
+	height: 4%; 
+	padding:10px; 
+	border: none; 
+	background-color: #E9E9E9;
+}
+
+.divisor_contenido{
+	width:100%; 
+	height: 4%; 
+	padding:4px; 
+	border: none; 
+	background-color: #E9E9E9;
+}
+
+.degradado {
+	position:absolute; 
+	top:85%; 
+	width: 33.3%; 
+	height: 15%;
+	background-image: linear-gradient(#f4f4f4, #eaeaea);
+
+}
+
+.rosa {
+	color: #F3565D;
+}
+
+.azul {
+	color: #279DCB;
+}
+
+.gris {
+	color: #A8A8A8;
+}
+
+.fuente_bold {
+	font-family: Roboto_bold;
+}
+
+.fuente_light {
+	font-family: Roboto_light;
+}
+
+.casa {
+	color:#279DCB; 
+	font-size:1.4em !important;
+}
+
+.flecha {
+	color:#279DCB; 
+	font-size:1.3em !important;
+}
+
+.enlace_cabecera {
+	font-family: Roboto_light;
+	font-size: 1em;
+	color: #F3565D;
+	text-decoration:none;
+	white-space: nowrap;
+    overflow: hidden;
+    o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.icono_cabecera {
+	color: #EAF5FA;
+}
+
+.icono_respuesta {
+	color: #88C9E2;
+	font-size: 20px;
+}
+
+.rotate {
+	-moz-transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+}
+
+.familia_light {
+	font-family: Roboto_light;
+}
+
+.familia_regular {
+	font-family: Roboto_regular;
+}
+
+.familia_bold {
+	font-family: Roboto_bold;
+}
+
+.titulo_actividad {
+	font-family: Roboto_bold;
+	font-size: 1.6rem;
+	color: #279dcc;
+	background-color: #EAF5FA;
+	border: 0px solid transparent;
+	margin-left: auto; 
+	margin-right: auto;
+	text-align: center;
+	width: 100%;
+	padding-bottom: 15%;
+	padding-top: 5%;
+	position: absolute;
+	top:7%;
+	left: 0px;
+	z-index: -999;
+}
+
+.contenedor_actividad {
+	height: 85%; 
+	width: 100%; 
+	background-color: white; 
+	position: absolute; 
+	top:15%; 
+	left: 0%; 
+	padding: 6%;
+}
+
+.encabezado_actividad {
+	font-family: Roboto_bold;
+	font-size: 2em;
+	color: #279DCB;
+	text-align: left;
+	padding-bottom: 2%;
+	border-bottom: #279DCB solid 2px;
+}
+
+.sub_encabezado_actividad {
+	font-family: Roboto_regular;
+	font-size: 1.8em;
+	color: #A8A8A8;
+	text-align: left;
+	padding-top: 4%;
+	padding-bottom: 4%;
+}
+
+.texto_actividad {
+	font-family: Roboto_light;
+	font-size: 1.4em;
+	color: #A8A8A8;
+	text-align: justify;
+}
+
+.metodo_calificacion {
+	font-family: Roboto_light;
+	font-size: 1em;
+	color: #A8A8A8;
+	text-align: center;
+	margin-top: 10%;
+}
+
+.intentos {
+	font-family: Roboto_light;
+	font-size: 1em;
+	color: #279DCB;
+	text-align: center;
+	margin-top: 4%;
+}
+
+.boton_actividad{
+	font-family: Roboto_regular;
+	background-color: #94B941;
+	margin-top: 4% !important; 
+	color:white; 
+	height: 50px !important; 
+	font-size: 1.8em !important;
+	border: none;
+	border-radius: 0px;
+	width:100% !important;
+}
+
+.titulo_mensajes {
+	font-family: Roboto_bold; 
+	font-size: 1.8em !important; 
+	width: 100%;
+	text-align: center;
+	color: #51514d;
+	position: absolute;
+	top: 2%;
+}
+
+.colorGris {
+	background-color: rgba(39, 157, 204, 0.85);
+	color: white;
+}
+
+
+.origen_right {
+	float: right;
+	background-color: #DFEAA2;
+}
+
+.origen_left {
+	float: left;
+	background-color: #FFEEAE;
+}
+
+
+.nuevoEvento {
+	position: absolute;
+	right: 7px;
+	top: 15px;
+	color: #52524F;
+	font-size: 30px !important;
+	line-height: 30px !important;
+	z-index: 999;
+}
+
+.archivoAtras {
+	position: absolute;
+	left: 1%;
+	top: 8%;
+	color: #A8A8A8;
+	font-size: 4em !important;
+}
+
+.my-menu {
+	background-color: #3e3f3f;
+}
+
+.my-menu .scroll {
+  background-color: transparent;
+}
+
+.my-menu .list {
+  background-color: transparent;
+}
+
+.my-menu .item, .my-menu .item-content, .my-menu .item-complex{
+  background-color: transparent;
+  color: #FFFFFF;
+  border-color: rgba(0,0,0,0);
+  font-family: Roboto_light;
+  font-size: 1.3em !important;
+}
+
+.image-list-thumb {
+    padding: 2px 2px 2px 2px;
+    height: 100px;
+}
+ 
+.image-modal {
+    width: 100% !important;
+    height: 100%;
+    top: 0 !important;
+    left: 0 !important;
+}
+ 
+.transparent {
+    background: transparent !important;
+}
+ 
+.fullscreen-image {
+    max-width: 100%;
+    max-height: 100%;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.js-video {
+  height: 0;
+  padding-top: 25px;
+  padding-bottom: 67.5%;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+ 
+.js-video.widescreen {
+  padding-bottom: 56.34%;
+}
+ 
+.js-video.vimeo {
+  padding-top: 0;
+}
+
+.tituloNuevoPost {
+  width:100%; 
+  font-family: Roboto_regular; 
+  font-size: 1.4em; 
+  line-height: 1.6em; 
+  text-align: center; 
+  color: #55b2d7;
+}
+
+.usuarios_mensajes {
+	font-family: Roboto_light;
+}
+
+label.filebutton {
+    font-size: 30px !important;
+    overflow:hidden;
+}
+
+label span input {
+    z-index: 999;
+    line-height: 0;
+    font-size: 50px;
+    position: absolute;
+    top: -2px;
+    left: -700px;
+    opacity: 0;
+    filter: alpha(opacity = 0);
+    -ms-filter: "alpha(opacity=0)";
+    cursor: pointer;
+    _cursor: hand;
+    margin: 0;
+    padding:0;
+    background-color: green;
+}
+
+.item-icon-left ion-spinner {
+  float: left;
+  margin-left: -3.2em;
+  margin-right: 1em;
+  margin-top: -0.2em;
+ }
+
+.spinner svg {
+  width: 28px;
+  height: 28px;
+  stroke: #999;
+  fill: #999;
+}
+
+.popup-buttons .button {
+	border: none !important;
+	border-radius: 0px !important;
+}
+
+.popup-title {
+	font-family: Roboto_regular;
+}
+
+.popup-body {
+	font-family: Roboto_light;
+	text-align: center;
+}
+
+
+#boton_log:hover {
+	font-family: Roboto_regular;
+	background-color: #9AC142;
+	color:white; 
+	font-size: 1.8em !important;
+	border: none; 
+	width:100% !important;
+
+}
+
+#boton_act:hover {
+	font-family: Roboto_regular;
+	background-color: #94B941;
+	color:white; 
+	font-size: 1.8em !important;
+	border: none; 
+	width:100% !important; 
+	margin:auto;
+	height: 100%;
+}
+
+#examen h3 {
+	font-family: Roboto_regular;
+	font-size: 1.5em;
+	color: #F3565D;
+}
+
+#examen p {
+	font-family: Roboto_light;
+	font-size: 1.4em;
+	color: #279DCB;
+}
+
+#examen form {
+	font-family: Roboto_light;
+	font-size: 1.4em;
+	color: #ABABAB;
+	padding-bottom: 3%;
+	border-bottom: rgba(39, 157, 204, 0.6) dotted 2px !important;
+}
+
+
+
+#examen input[type=radio] {
+    opacity: 0;
+    height:21px;
+    width:50%;
+    
+}
+
+#examen input[type=radio] + label {
+    padding-left:26px;
+    margin-left: -50%;
+    height:21px; 
+    display:inline-block;
+    line-height:21px;
+    background-repeat:no-repeat;
+    background-position: 0 0px;
+    font-size:21px;
+}
+
+#examen input[type=radio]:checked + label {
+    background-position: 0 -21px;
+}
+
+
+/*label {
+    background-image: url("../img/checkbox.png");
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-top: 20px;
+}*/
+
+
+
+
+
+

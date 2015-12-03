@@ -1,0 +1,23 @@
+<ion-modal-view>
+
+    <p style="font-family: Roboto_bold; font-size: 30px; text-align: center; color: #279DCB; width: 100%; padding-top: 50px;  padding-bottom: 25px; background-color: #E9E9E9; height: 105px; line-height: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nuevo Post</p>
+
+  <ion-content style="margin-top:105px;">
+          <div style="font-family: Roboto_light; font-size: 1.2em; border-bottom: #279DCB dotted 2px !important; padding: 3%;" ng-repeat="post in discussionForo.posts | filter:esElPost" class="tituloNuevoPost">
+          	Re: {{htmlToPlaintext(post.message)}}
+          </div>
+    <form ng-submit="crearPost(evento)" id="event">
+      <div class="list">       
+
+		  <textarea style="background-color: #EFEFEF; margin-left: 10%; width: 80%; height: 200px; margin-top: 5%; rows:5; line-height: 1.2em; font-size: 1.2em; font-family: Roboto_light; border-radius: 0px; padding:2%;" ng-model="evento.texto" placeholder=" Escriba aquí su mensaje"></textarea>
+
+
+          <button class="button button-block button-balanced" style="width:80%; margin-left:10%; border-radius: 0px !important; margin-top: 10%; border-color: transparent !important;" type="submit">Responder</button>
+
+          <button class="button button-block button-assertive" style="width:80%; margin-left:10%; border-radius: 0px !important; border-color: transparent !important;" ng-click="closeModal()">Cancelar</button>
+
+
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

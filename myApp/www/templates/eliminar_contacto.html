@@ -1,0 +1,22 @@
+<ion-modal-view>
+  
+  <p style="font-family: Roboto_bold; font-size: 30px; text-align: center; color: #279DCB; width: 100%; padding-top: 50px;  padding-bottom: 25px;background-color: #E9E9E9; height: 105px; line-height: 30px;">Eliminar Contacto</p>
+
+  <ion-content style="margin-top:105px;">
+    <form ng-submit="eliminarContacto(evento.gr.id)" id="evento">
+      <div class="list">
+      
+        <label class="item item-input item-select" style="border: none;">
+			<span style="font-family: Roboto_light; font-size: 1.5em; color: #A8A8A8; padding-top:5px;" class="input-label">Usuario:</span>
+			<select style="font-family: Roboto_light; font-size: 1.2em; color: #F3565D;" ng-options="grupo.fullname for grupo in contactosTotal | orderBy: 'id'" ng-model="evento.gr" form="evento" ng-init="evento.gr = contactosTotal[0]"></select>
+		</label>
+        
+        <button class="button button-block button-energized" style="width:80%; margin-left:10%; border-radius: 0px !important; margin-top: 10%; border-color: transparent !important;" type="submit">Eliminar</button>
+          
+      </div>
+    </form>
+    
+    <button class="button button-block button-assertive" style="width:80%; margin-left:10%; border-radius: 0px !important; border-color: transparent !important;" ng-click="closeModal()">Cancelar</button>
+    
+  </ion-content>
+</ion-modal-view>

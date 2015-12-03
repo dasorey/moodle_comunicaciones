@@ -1,0 +1,12 @@
+	<div class="modal image-modal transparent" >
+	
+	<ion-header-bar class="bar bar-header bar-dark">
+		<div class="buttons" style="position: absolute; right: 5px;">
+			<button class="button button-clear" ng-click="closeModal()">Cerrar</button>
+    	</div>
+	</ion-header-bar>
+    
+       <img ng-src="{{imagen}}" class="fullscreen-image" ng-if="!esVideo" />
+       <video ng-src="{{imagen}}" class="fullscreen-image" controls autoplay ng-if="esVideo" ></video>	
+	</div>
+	

@@ -1,0 +1,60 @@
+<ion-modal-view>
+  
+  <p style="font-family: Roboto_bold; font-size: 30px; text-align: center; color: #279DCB; width: 100%; padding-top: 50px; padding-bottom: 25px; background-color: #E9E9E9; height: 105px; line-height: 30px;" ><span ng-if="!esEvento">Nuevo evento</span><span ng-if="esEvento">Evento</span></p>
+  
+  <ion-content  style="margin-top:105px;">
+    <form ng-if="!esEvento" ng-submit="crearEvento()" id="evento">
+      <div class="list">
+        <label class="item item-input"  style="border: none;">
+          <span style="font-family: Roboto_light; font-size: 1.5em; color: #A8A8A8; padding-top:5px;">Título:</span>
+          <input style="text-align: right; font-family: Roboto_light; font-size: 1.2em;" type="text" ng-model="evento.titulo">
+        </label>
+        <label class="item"  style="border: none;">
+          <span style="font-family: Roboto_light; font-size: 1.5em; color: #A8A8A8; padding-top:5px;">Descripción:</span>
+        </label>
+        <label class="item item-input"  style="border: none;">
+          <input style="text-align: left; font-family: Roboto_light; font-size: 1.2em;" type="text" ng-model="evento.descripcion">
+        </label>
+        <label class="item item-input item-select"  style="border: none;">
+			<span style="font-family: Roboto_light; font-size: 1.5em; color: #A8A8A8; padding-top:5px;">Grupo:</span>
+			<select style="text-align: right; font-family: Roboto_light; font-size: 1.2em;" ng-options="grupo.groupname for grupo in gruposCursos | orderBy: 'groupid'" ng-model="evento.gr" form="evento"></select>
+		</label>
+        <label class="item item-input"  style="border: none;">
+          <span style="font-family: Roboto_light; font-size: 1.5em; color: #A8A8A8; padding-top:5px;">Inicio:</span>
+          <input style="text-align: right; font-family: Roboto_light; font-size: 1.2em;" type="datetime-local" ng-model="evento.inicio">
+        </label>
+        <label class="item item-input"  style="border: none;">
+          <span style="font-family: Roboto_light; font-size: 1.5em; color: #A8A8A8; padding-top:5px;">Final:</span>
+          <input style="text-align: right; font-family: Roboto_light; font-size: 1.2em;" type="datetime-local" ng-model="evento.fin">
+        </label>
+        
+        <button class="button button-block button-balanced" style="width:80%; margin-left:10%; border-radius: 0px !important; margin-top: 10%; border-color: transparent !important;" type="submit">Añadir evento</button>
+        
+      </div>
+    </form>
+    <button ng-if="!esEvento" class="button button-block button-assertive" style="width:80%; margin-left:10%; border-radius: 0px !important; border-color: transparent !important;" ng-click="cancelarEvento()">Cancelar</button>
+    <!-- A partir de aquí es la descripción del envento-->
+    
+    <div ng-if="esEvento">
+	    
+    <p class="item item-text-wrap titulo_curso_detalle" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-left: 10px; padding-right: 10px;">
+    	{{htmlToPlaintext(eventoMostrar.name)}}
+    </p>
+    <p style="font-size: 1.4em; color: #A8A8A8; font-family: Roboto_light; padding: 3%;" >
+	    {{htmlToPlaintext(eventoMostrar.description)}}
+	</p>
+	<p class="item item-text-wrap" style="font-size: 1.0em; text-align: right; color: #279dcc; font-family: Roboto_light; width: 100%; border: none;  position: absolute; right: 5px; padding: 5px !important;">
+		Inicio: {{eventoMostrar.timestart * 1000 | date:"HH:mm (dd/MM/yy)"}} 
+		<span ng-if="(eventoMostrar.timeduration > 0)">
+			- Final: {{(eventoMostrar.timestart + eventoMostrar.timeduration) * 1000 | date:"HH:mm (dd/MM/yy)"}}
+		</span>
+	</p>
+	
+    
+    </div> 
+      
+    <button ng-if="esEvento" class="button button-block button-balanced" style="width:80%; margin-left:10%; border-radius: 0px !important; margin-top: 15%; border-color: transparent !important;" ng-click="cancelarEvento()">Aceptar</button>
+    <button ng-if="esEvento" class="button button-block button-calm" style="width:80%; margin-left:10%; border-radius: 0px !important; border-color: transparent !important;" ng-click="anadirCalendarioTelefono()">Añadir a mi calendario</button>
+
+  </ion-content>
+</ion-modal-view>
