@@ -1,4 +1,4 @@
-<ion-view hide-nav-bar="true" style="background-color: #279DCB;">
+<ion-view hide-nav-bar="true" style="background-color: #0e33a5;">
 
 	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="comprobarPlataforma()"></div>
 	<img width="100%" ng-class="{posicion_24px: comprobarPlataforma(), posicion_0px: !comprobarPlataforma()}" src="img/filigrana.png">
@@ -8,15 +8,15 @@
 
   <ion-footer-bar class="datos_login">
 
-  	<div style="position: absolute; top: 17%;  left: 10%; right: 0; height:33%;">
-	  <img style="height:90%;" src="img/logo_portada.png">
+  	<div style="position: absolute; top: 17%;  left: 0px; right: 0; height:33%;">
+	  <img style="height:100%;" src="img/logo_portada.png">
   	</div>
-  	<div style="position:absolute; top: 50%; width:100%; background-color: #2082A8; height: 50%;" >
-  	<form ng-submit="guardarURL(datosServidor)" style="width:100%; height: 50%;" >
+  	<div style="position:absolute; top: 50%; width:100%; background-color: #0e33a5; height: 50%;" >
+  	<form style="width:100%; height: 50%;" >
 
-      <div class="list" style="width:70%; margin-left:15%; padding:0px; padding-left: -15%; background-color: #279DCB; position:absolute; top:18%; height:39px;">
+      <div class="list" style="width:70%; margin-left:15%; padding:0px; padding-left: -15%; background-color: #e9e9e9; position:absolute; top:18%; height:39px;">
 
-	    <div style="background-color: #279DCB; width: 100%; height: 25px;">
+	    <div style="background-color: #e9e9e9; width: 100%; height: 25px;">
 
 	    	<div style="width:15%; height:20%; position:absolute; left:0%; top:17%; font-size: 200%;">
 	    		<i class="md md-language logo_input" style="margin-bottom: 8px;"></i>
@@ -27,9 +27,9 @@
 	    </div>
 
         <div class="contenedor_boton_login" style="height: 40px;">
-      		<button class="boton_login" id="boton_log" type="submit">Conectarse</button>
+      		<button class="boton_login" id="boton_log" ng-click="guardarURL(datosServidor)">Conectarse</button>
       	</div>
-        <p style="color: white; font-size: 12px; font-family: Roboto_light;">*Escriba la url del servidor de moodle al que se desea conectar. Recuerde que su moodle debe tener activados los servicios web para permitir la comunicación con la aplicación.</p>
+        <p style="color: white; font-size: 12px; font-family: Roboto_regular;">*Escriba la url del servidor de moodle al que se desea conectar. Recuerde que su moodle debe tener activados los servicios web para permitir la comunicación con la aplicación.</p>
       </div>
 
 

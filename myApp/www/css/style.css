@@ -14,37 +14,37 @@
 }
 
 .posicion_24px {
-	position: absolute; 
-	top: 24px; 
-	left: 0px; 
-	margin:0px; 
+	position: absolute;
+	top: 24px;
+	left: 0px;
+	margin:0px;
 	max-height: 10px;
 }
 
 .posicion_0px {
-	position: absolute; 
-	top: 0px; 
-	left: 0px; 
-	margin:0px; 
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	margin:0px;
 	max-height: 10px;
 }
 
 .datos_login{
 	background:none;
-	padding: 0px; 
-	height: 100%; 
+	padding: 0px;
+	height: 100%;
 	text-align:center;
 
 }
 
 .boton_login{
 	font-family: Roboto_regular;
-	background-color: #94ba41;
-	color:white; 
+	background-color: #911c29;
+	color:white;
 	font-size: 1.8em !important;
-	border: none; 
-	width:100%; 
-	height: 100%;	
+	border: none;
+	width:100%;
+	height: 100%;
 }
 
 .item-container {
@@ -80,11 +80,11 @@
 	font-size: 2em;
 	position: absolute;
     top: 20%;
-    
+
 }
 
 .logo_input {
-    color:white;
+    color: #acacac;
     width: 100%;
     height: 100%;
 }
@@ -120,7 +120,7 @@
 
 .datos_curso{
 	background: none;
-	height: 100%; 
+	height: 100%;
 	text-align:center;
 	padding:0px;
 }
@@ -164,7 +164,7 @@
 	height: 12%;
 	width: 100%;
 	position:absolute;
-	top: 46%; 
+	top: 46%;
 }
 
 .celda_curso {
@@ -207,7 +207,7 @@
 }
 
 .titulo_curso_detalle {
-	font-family: Roboto_bold; 
+	font-family: Roboto_bold;
 	font-size: 30px;
 	padding: 0px;
 	padding-top: 15px;
@@ -241,20 +241,20 @@
 .icon_lateral_contenido {
 	width: 60px;
 	height: 60px;
-	background-color:#EAF5FA; 
-	display:inline-block; 
-	position: absolute; 
-	left: 0px; 
-	top: 0px; 
-	height: 100%; 
+	background-color:#EAF5FA;
+	display:inline-block;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 100%;
 	text-align:center;
 	margin: 0px;
 }
 
 .divisor {
-	color:#279DCB; 
-	font-family: Roboto_bold; 
-	text-align:center; 
+	color:#279DCB;
+	font-family: Roboto_bold;
+	text-align:center;
 	font-size: 1.3em;
 }
 
@@ -267,25 +267,25 @@
 }
 
 .divisor{
-	width:100%; 
-	height: 4%; 
-	padding:10px; 
-	border: none; 
+	width:100%;
+	height: 4%;
+	padding:10px;
+	border: none;
 	background-color: #E9E9E9;
 }
 
 .divisor_contenido{
-	width:100%; 
-	height: 4%; 
-	padding:4px; 
-	border: none; 
+	width:100%;
+	height: 4%;
+	padding:4px;
+	border: none;
 	background-color: #E9E9E9;
 }
 
 .degradado {
-	position:absolute; 
-	top:85%; 
-	width: 33.3%; 
+	position:absolute;
+	top:85%;
+	width: 33.3%;
 	height: 15%;
 	background-image: linear-gradient(#f4f4f4, #eaeaea);
 
@@ -312,12 +312,12 @@
 }
 
 .casa {
-	color:#279DCB; 
+	color:#279DCB;
 	font-size:1.4em !important;
 }
 
 .flecha {
-	color:#279DCB; 
+	color:#279DCB;
 	font-size:1.3em !important;
 }
 
@@ -367,7 +367,7 @@
 	color: #279dcc;
 	background-color: #EAF5FA;
 	border: 0px solid transparent;
-	margin-left: auto; 
+	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 	width: 100%;
@@ -380,12 +380,12 @@
 }
 
 .contenedor_actividad {
-	height: 85%; 
-	width: 100%; 
-	background-color: white; 
-	position: absolute; 
-	top:15%; 
-	left: 0%; 
+	height: 85%;
+	width: 100%;
+	background-color: white;
+	position: absolute;
+	top:15%;
+	left: 0%;
 	padding: 6%;
 }
 
@@ -433,9 +433,9 @@
 .boton_actividad{
 	font-family: Roboto_regular;
 	background-color: #94B941;
-	margin-top: 4% !important; 
-	color:white; 
-	height: 50px !important; 
+	margin-top: 4% !important;
+	color:white;
+	height: 50px !important;
 	font-size: 1.8em !important;
 	border: none;
 	border-radius: 0px;
@@ -443,8 +443,8 @@
 }
 
 .titulo_mensajes {
-	font-family: Roboto_bold; 
-	font-size: 1.8em !important; 
+	font-family: Roboto_bold;
+	font-size: 1.8em !important;
 	width: 100%;
 	text-align: center;
 	color: #51514d;
@@ -511,18 +511,18 @@
     padding: 2px 2px 2px 2px;
     height: 100px;
 }
- 
+
 .image-modal {
     width: 100% !important;
     height: 100%;
     top: 0 !important;
     left: 0 !important;
 }
- 
+
 .transparent {
     background: transparent !important;
 }
- 
+
 .fullscreen-image {
     max-width: 100%;
     max-height: 100%;
@@ -543,21 +543,21 @@
   position: relative;
   overflow: hidden;
 }
- 
+
 .js-video.widescreen {
   padding-bottom: 56.34%;
 }
- 
+
 .js-video.vimeo {
   padding-top: 0;
 }
 
 .tituloNuevoPost {
-  width:100%; 
-  font-family: Roboto_regular; 
-  font-size: 1.4em; 
-  line-height: 1.6em; 
-  text-align: center; 
+  width:100%;
+  font-family: Roboto_regular;
+  font-size: 1.4em;
+  line-height: 1.6em;
+  text-align: center;
   color: #55b2d7;
 }
 
@@ -619,9 +619,9 @@ label span input {
 #boton_log:hover {
 	font-family: Roboto_regular;
 	background-color: #9AC142;
-	color:white; 
+	color:white;
 	font-size: 1.8em !important;
-	border: none; 
+	border: none;
 	width:100% !important;
 
 }
@@ -629,10 +629,10 @@ label span input {
 #boton_act:hover {
 	font-family: Roboto_regular;
 	background-color: #94B941;
-	color:white; 
+	color:white;
 	font-size: 1.8em !important;
-	border: none; 
-	width:100% !important; 
+	border: none;
+	width:100% !important;
 	margin:auto;
 	height: 100%;
 }
@@ -663,13 +663,13 @@ label span input {
     opacity: 0;
     height:21px;
     width:50%;
-    
+
 }
 
 #examen input[type=radio] + label {
     padding-left:26px;
     margin-left: -50%;
-    height:21px; 
+    height:21px;
     display:inline-block;
     line-height:21px;
     background-repeat:no-repeat;
