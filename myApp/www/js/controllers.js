@@ -213,7 +213,17 @@ angular.module('starter.controllers', ['ionic'])
 					hide();
 				}
 
-  		});
+  		}).
+  		error(function(data, status, headers, config) {
+  			hide();
+  			var alertPopup = $ionicPopup.alert({
+  				title: 'Error al iniciar sesión',
+  				template: '<p style="text-align:center;">El servidor que ha introducido no responde. Compruebe que lo ha escrito bien.</p>',
+  				okText: 'Aceptar',
+  				okType: 'button-assertive'
+  			});
+  			$state.go("app.servidor");
+	    });
 
 	};
 
