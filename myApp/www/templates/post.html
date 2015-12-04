@@ -2,14 +2,14 @@
 
 	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="(platform != 'Android')"></div>
 	<img width="100%" ng-class="{posicion_24px:(platform != 'Android'), posicion_0px:(platform == 'Android')}" src="img/filigrana.png">
-	
-	<div style="height:100%; text-align: right; padding:0px; background-color: #279DCB;">
+
+	<div style="height:100%; text-align: right; padding:0px; background-color: #0e33a5;">
 		<i class="md md-menu md-3x" style="position:absolute; top: 9%; left:3%; color:white;" ng-click="toggleLeft()"></i>
-		<img style="height:12%; position:absolute; top: 7%; right: 0%;" src="img/logo_portada.png" >
+		<img style="height:12%; position:absolute; top: 5%; right: 0%;" src="img/logo_portada.png" >
 	</div>
-	
+
 	<ion-footer-bar style="height: 83%; background-color: #E9E9E9; padding: 0px;">
-	
+
 	<div style="height: 25px; width: 100%; background-color: #E9E9E9; position: absolute; top: 0; left: 0px;">
 		<div style="height:25px; text-align:left; line-height: 25px; width: 100%; padding-left: 10px;">
 	  		<i class="md md-home casa"></i>
@@ -21,19 +21,19 @@
 	  		<a class="enlace_cabecera">{{discussionNombre}}</a>
 	  	</div>
   	</div>
-  	
+
   	<div style="height: 60px; width: 100%; position: absolute; top: 0px; left: 0px; margin-top: 25px;">
 		<p class="item item-divider titulo_curso_detalle" style="padding-left:10px; padding-right: 10px;">{{discussionNombre}}</p>
 	</div>
-	
+
 		<div style="width: 100%; height: 100%; margin-top:85px; padding-bottom: 85px !important;  background-color: white; overflow: scroll; -webkit-overflow-scrolling: touch;" >
 			<ion-list>
 			<!------------------------------------------------------------------------>
-				<ion-item ng-repeat="post in discussionForo.posts | orderBy: 'created' | filter:esPadre" style="width:100%; padding: 10px; border: none !important; padding: 0px;">						
+				<ion-item ng-repeat="post in discussionForo.posts | orderBy: 'created' | filter:esPadre" style="width:100%; padding: 10px; border: none !important; padding: 0px;">
 					<span style="margin-left: 10px;">
 						<img ng-src={{verImagenUsusario(post.userpictureurl)}} height="50" width="50" style="border-radius: 50%; position:absolute; top:10px;"/>
 						<span class="familia_light" style="width:100%; margin-left:70px; display:inline-block; margin-top: 20px; padding-right: 150px !important;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-							<span class="familia_light" style="font-size: 20px; color: #A8A8A8; line-height: 20px;">	
+							<span class="familia_light" style="font-size: 20px; color: #A8A8A8; line-height: 20px;">
 								{{post.userfullname}}
 							</span><br>
 							<span class="familia_light" style="font-size: 15px; color: #88C9E2; line-height: 20px;">
@@ -57,18 +57,18 @@
 							<br><i class="md md-attach-file"></i>{{post.attachments[0].filename}}
 						</p>
 					</span>
-					
+
 					<p style="font-size: 18px; color: #F3565D; font-family: Roboto_light; width: 95%; text-align: right; line-height: 24px; padding-bottom: 10px;" >
 						<span ng-click="showImages(post.id)">Responder</span>
 					</p>
 				</ion-item>
-				
+
 				<!------------------------------------------------------------------------>
 				<ion-item ng-repeat="post in discussionForo.posts | orderBy: 'created' | filter:verPostRaiz" style="width:100%; padding: 10px; border: none !important; border-top: #279DCB dotted 1px !important; padding: 0px;">
 				<span style="margin-left: 10px;">
 	  					<img ng-src={{verImagenUsusario(post.userpictureurl)}} height="50" width="50" style="border-radius: 50%; position:absolute; top:10px;"/>
 	  					<span class="familia_light" style="width:100%; margin-left:70px; display:inline-block; margin-top: 20px; padding-right: 150px !important;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-	  						<span class="familia_light" style="font-size: 20px; color: #A8A8A8; line-height: 20px;">	
+	  						<span class="familia_light" style="font-size: 20px; color: #A8A8A8; line-height: 20px;">
 	  							{{post.userfullname}}
 	  						</span><br>
 	  						<span class="familia_light" style="font-size: 15px; color: #88C9E2; line-height: 20px;">
@@ -80,7 +80,7 @@
 	  						</span>
 	  					</span>
 	  				</span>
-	  				
+
 					<span style="border-width: 0px; width: 100%; background-color: transparent;" class="item item-text-wrap">
 						<span class="familia_light" style="font-size: 18px; color: #585850;">
 							{{mensajeOriginal(htmlToPlaintext(post.message))}}
@@ -92,7 +92,7 @@
 							<br>{{post.attachments[0].filename}}
 						</p>
 					</span>
-					
+
 					<p style="font-size: 18px; color: #F3565D; font-family: Roboto_light; width: 95%; text-align: right; line-height: 24px; padding-bottom: 10px;" >
 							<span ng-click="hijoVisible = !hijoVisible">Ver hilo &nbsp;&nbsp;&nbsp;&nbsp;</span>
 							<span ng-click="showImages(post.id)"> Responder</span>
@@ -107,9 +107,9 @@
 
 
 			</ion-list>
-			
+
   		</div>
-	
+
 	</ion-footer-bar>
 </ion-view>
 

@@ -2,17 +2,17 @@
 
 	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="(platform != 'Android')"></div>
 	<img width="100%" ng-class="{posicion_24px:(platform != 'Android'), posicion_0px:(platform == 'Android')}" src="img/filigrana.png">
-	
-	<div style="height:100%; text-align: right; padding:0px; background-color: #279DCB;">
+
+	<div style="height:100%; text-align: right; padding:0px; background-color: #0e33a5;">
 		<i class="md md-menu md-3x" style="position:absolute; top: 9%; left:3%; color:white;" ng-click="toggleLeft()"></i>
-		<img style="height:12%; position:absolute; top: 7%; right: 0%;" src="img/logo_portada.png" >
+		<img style="height:12%; position:absolute; top: 5%; right: 0%;" src="img/logo_portada.png" >
 	</div>
-	
+
 	<ion-footer-bar style="height: 83%; background-color: #E9E9E9;  padding:0px;">
-	
+
 	<div style="height: 85px; width: 100%; background-color: #E9E9E9; position: absolute; top: 0; left: 0px;">
 		<div style="height:25px; text-align:left; line-height: 25px;">
-				
+
 	  		<i class="md md-home casa"></i>
 	  		<i class="md md-keyboard-arrow-right flecha flecha_posicion1"></i>
 	  		<a href="#/app/mensajes" class="enlace_cabecera enlace_posicion1">Mensajes</a>
@@ -20,16 +20,16 @@
 	  		<a class="enlace_cabecera enlace_posicion2">Conversación</a>
 
 	  	</div>
-	  	
+
 	  	<div style="height: 60px; width: 100%; background-color: #E9E9E9; position: absolute; top: 25px; left: 0px;">
 			<p class="item item-divider titulo_curso_detalle">Conversación</p>
 		</div>
-		
+
   	</div>
 
 		<div style="width: 100%; height: 100%; margin-top:85px; padding-bottom: 145px !important;  background-color: white; overflow: scroll; -webkit-overflow-scrolling: touch; padding: 0px;" >
 	  		<ion-list>
-	  			
+
 				<div ng-repeat="mensaje in mensajes | orderBy: '-timecreated'" style="min-width:51%; max-width: 80%; border-radius: 20px; margin: 15px; margin-bottom: 0px; border: none; padding: 5px;" ng-class="{colorGris:(mensaje.timeread == '0'), origen_right:(mensaje.useridfrom == usuario.userid), origen_left:(mensaje.useridfrom != usuario.userid)}" >
 					<span ng-class="{colorGris:(mensaje.timeread == '0')}" style="border-width: 0px; width: 100%; background-color: transparent; margin-top: -15px;" class="item item-text-wrap">
 						<img src="img/flecha_verde.png" style="position: absolute; top: 27px; left: 100%; margin-left: 6px;" ng-if="(mensaje.useridfrom == usuario.userid)">
@@ -46,13 +46,13 @@
 
 
 			</ion-list>
-			
+
   		</div>
-  		
+
   		<div style="background-color: #279DCB; height: 60px; position: absolute; bottom: 0px; left: 0px; width: 100%; z-index: 999;">
 	  		<input type="text" ng-model="mensajeDeEnvio" placeholder="Mensaje" class="noshadow" style="width:80%;height: 100%; border-radius: 0px; text-decoration: none; font-size: 1.2em; line-height: 2em; background-color: #F9F9F9; border: #EFEFEF solid 5px !important; font-family: Roboto_light; padding-left: 2%; display: inline-block; -webkit-appearance: none;">
 	  		<p style="color: white; font-size: 1.0em; display: inline-block; width: 18%; text-align: center; text-align: center;" ng-click="enviarMensaje()">Enviar</p>
   		</div>
-	
+
 	</ion-footer-bar>
 </ion-view>

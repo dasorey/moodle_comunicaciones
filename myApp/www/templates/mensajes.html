@@ -2,12 +2,12 @@
 
 	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="(platform != 'Android')"></div>
 	<img width="100%" ng-class="{posicion_24px:(platform != 'Android'), posicion_0px:(platform == 'Android')}" src="img/filigrana.png">
-	
-	<div style="height:100%; text-align: right; padding:0px; background-color: #279DCB;">
+
+	<div style="height:100%; text-align: right; padding:0px; background-color: #0e33a5;">
 		<i class="md md-menu md-3x" style="position:absolute; top: 9%; left:3%; color:white;" ng-click="toggleLeft()"></i>
-		<img style="height:12%; position:absolute; top: 7%; right: 0%;" src="img/logo_portada.png" >
+		<img style="height:12%; position:absolute; top: 5%; right: 0%;" src="img/logo_portada.png" >
 	</div>
-	
+
 	<ion-footer-bar style="height: 83%; background-color: #E9E9E9; padding:0px;" >
 
 		<div style="height: 85px; width: 100%; background-color: #E9E9E9; position: absolute; top: 0; left: 0px;">
@@ -22,12 +22,12 @@
 				<i class="md md-group-add nuevoEvento" ng-click="gestionUsuarios()"></i>
 			</div>
 		</div>
-		
+
 		<div style="width: 100%; height: 100%; margin-top:85px; padding-bottom: 85px !important;  background-color: white; overflow: scroll; -webkit-overflow-scrolling: touch; padding: 0px;" >
-	  		
+
 	  		<ion-list>
-				
-				<div class="item-divider divisor usuarios_mensajes" style="border-bottom: 1px solid white; background-color: #279DCB; color: white;">Usuarios en línea <b>({{contactos.online.length}})</b></div>
+
+				<div class="item-divider divisor usuarios_mensajes" style="border-bottom: 1px solid white; background-color: #0e33a5; color: white;">Usuarios en línea <b>({{contactos.online.length}})</b></div>
 				<ion-item ng-repeat="contacto in contactos.online" class="celda_curso" ng-click="verMensajes(contacto.id)" href="#/app/conversacion" style="margin-bottom: 1px;  height: 60px;">
 					<span class="icon_lateral_contenido" style="width: 60px !important; height: 60px !important; padding: 0px;">
 						<img ng-src={{contacto.profileimageurlsmall}} width="40" height="40" style="color:#88C9E2; position:absolute; top:10px; left:10px; border-radius: 50%;">
@@ -35,8 +35,8 @@
 					<span style="display:inline-block; padding-left: 60px !important; border-width: 0px; background-color:transparent !important; width: 100%; padding-top: 0px;" class="item item-text-wrap">
 					<span class="contenido_curso" style="width:100%; font-family: Roboto_light;">{{htmlToPlaintext(contacto.fullname)}}<span ng-if="contacto.unread > 0"> <b>({{contacto.unread}})</b></span></span></span>
 				</ion-item>
-					
-				<div class="item-divider divisor usuarios_mensajes" style="border-bottom: 1px solid white; background-color: #279DCB; color: white;">Usuarios no conectados <b>({{contactos.offline.length}})</b></div>
+
+				<div class="item-divider divisor usuarios_mensajes" style="border-bottom: 1px solid white; background-color: #0e33a5; color: white;">Usuarios no conectados <b>({{contactos.offline.length}})</b></div>
 				<ion-item ng-repeat="contacto in contactos.offline" class="celda_curso" ng-click="verMensajes(contacto.id)" href="#/app/conversacion" style="margin-bottom: 1px; height: 60px;">
 					<span class="icon_lateral_contenido" style="width: 60px !important; height: 60px !important; padding: 0px;">
 						<img ng-src={{contacto.profileimageurlsmall}} width="40" height="40" style="color:#88C9E2; position:absolute; top:10px; left:10px; border-radius: 50%;">
@@ -46,8 +46,8 @@
 				</ion-item>
 
 			</ion-list>
-			
+
   		</div>
-	
+
 	</ion-footer-bar>
 </ion-view>

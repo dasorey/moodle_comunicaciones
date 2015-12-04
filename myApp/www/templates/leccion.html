@@ -1,16 +1,16 @@
 <ion-view hide-nav-bar="true">
-	
+
 	<div style="position: absolute; top: 0px; left: 0px; margin:0px; background-color: #3e3f3f; height: 24px; width: 100%;" ng-if="(platform != 'Android')"></div>
 	<img width="100%" ng-class="{posicion_24px:(platform != 'Android'), posicion_0px:(platform == 'Android')}" src="img/filigrana.png">
-	
-	<div style="height:100%; text-align: right; padding:0px; background-color: #279DCB;">
+
+	<div style="height:100%; text-align: right; padding:0px; background-color: #0e33a5;">
 		<i class="md md-menu md-3x" style="position:absolute; top: 9%; left:3%; color:white;" ng-click="toggleLeft()"></i>
-		<img style="height:12%; position:absolute; top: 7%; right: 0%;" src="img/logo_portada.png" >
+		<img style="height:12%; position:absolute; top: 5%; right: 0%;" src="img/logo_portada.png" >
 	</div>
 
-	
+
   <ion-footer-bar style="height: 83%; background-color: #EAF5FA; padding:0px;">
-   
+
     <div class="item item-divider divisor_contenido">
 	  	<div style="height:100%; text-align:left;">
 	  		<i class="md md-home casa"></i>
@@ -22,15 +22,15 @@
 	  		<a class="enlace_cabecera enlace_posicion3">{{titulo}}</a>
 	  	</div>
   	</div>
-  	
+
 
 	  	<p class="item item-divider titulo_actividad">{{titulo}}</p>
         <div style="position:absolute; top: 15%; left: 0%;">
             <iframe src="http://miguel.ingles-ovh.dev/mod/contenidos/view.php?id=17" frameborder="0" width="560" height="315"></iframe>
         </div>
 
-	
-		
+
+
   </ion-footer-bar>
 
-</ion-view> 
+</ion-view>
