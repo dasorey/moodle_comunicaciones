@@ -27,7 +27,6 @@ angular.module('starter.controllers', ['ionic'])
 	    }
     }
 
-
 	$scope.alerta = function(check) {
 		if (check) {
 			var confirmPopup = $ionicPopup.confirm({

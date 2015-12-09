@@ -53,6 +53,15 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     }
   })
 
+  .state('app.notas', {
+    url: "/notas",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/notas.html",
+        controller: 'Notas'
+      }
+    }
+  })
 
   .state('app.post', {
     url: "/post",
@@ -80,6 +89,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       'menuContent': {
         templateUrl: "templates/foros.html",
         controller: 'Foros'
+      }
+    }
+  })
+  
+  .state('app.archivos', {
+    url: "/archivos",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/archivos.html",
+        controller: 'Archivos'
       }
     }
   })
