@@ -27,10 +27,10 @@
 
 				<ion-item ng-repeat="foro in forosDelCurso | orderBy: '-id'" class="celda_curso" style="margin-bottom: 1px; padding: 0px !important;" ng-click="verMensajes(foro.id, htmlToPlaintext(foro.name))" href="#/app/discussion">
 					<span class="icon_lateral_contenido" style="width: 80px !important; height: 80px;">
-						<i class="md md-people" style="font-size: 50px; line-height: 50px; width: 50px; height: 50px; position:absolute; top:15px; left:15px; color: #88C9E2;"></i>
+						<i class="md md-people" style="font-size: 50px; line-height: 50px; width: 50px; height: 50px; position:absolute; top:15px; left:15px; color: #0e33a5;"></i>
 					</span>
 					<span style="padding: 0px !important; padding-left: 80px !important; border-width: 0px; background-color:transparent !important; height: 80px !important; padding-right: 30px !important;">
-						<span class="familia_light" style="font-size: 20px; color: #88C9E2; line-height: 20px;">
+						<span class="familia_light" style="font-size: 20px; color: #0e33a5; line-height: 20px;">
 							{{htmlToPlaintext(foro.name)}}
 						</span><br>
 						<span class="familia_light" style="font-size: 15px; color: #A8A8A8; line-height: 20px;padding-left: 80px;">
@@ -38,7 +38,7 @@
 						</span>
 					</span>
 					<span style="position: absolute; right: 20px; top: 25px; width: 20px; height: 30px;">
-						<span class="familia_regular" style="color: #88C9E2; font-size: 20px;">{{foro.numdiscussions}}</span><i class="md md-insert-comment icono_respuesta rotate"></i>
+						<span class="familia_regular" style="color: #0e33a5; font-size: 20px;">{{foro.numdiscussions}}</span><i class="md md-insert-comment icono_respuesta rotate"></i>
 					</span>
 
 				</ion-item>

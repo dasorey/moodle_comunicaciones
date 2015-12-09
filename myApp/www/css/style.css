@@ -231,7 +231,7 @@
 }
 
 .icon_select{
-	color: #279DCB;
+	color: #0e33a5;
 }
 
 .icon_unselect{
@@ -296,7 +296,7 @@
 }
 
 .azul {
-	color: #279DCB;
+	color: #0e33a5;
 }
 
 .gris {
@@ -337,7 +337,7 @@
 }
 
 .icono_respuesta {
-	color: #88C9E2;
+	color: #0e33a5;
 	font-size: 20px;
 }
 
@@ -618,7 +618,6 @@ label span input {
 
 #boton_log:hover {
 	font-family: Roboto_regular;
-	background-color: #9AC142;
 	color:white;
 	font-size: 1.8em !important;
 	border: none;
@@ -681,6 +680,14 @@ label span input {
     background-position: 0 -21px;
 }
 
+.tamano_login_url {
+  height: 38px;
+}
+
+.tamano_login {
+  height: 24%;
+  min-height:100px;
+}
 
 /*label {
     background-image: url("../img/checkbox.png");

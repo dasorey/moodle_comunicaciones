@@ -49,7 +49,7 @@ angular.module('starter.controllers', ['ionic'])
 		} else {
 			window.localStorage['pulgar'] = "noPedirDedo";
 			window.localStorage['usuarioTouchID'] = "";
-        	window.localStorage['passwordTouchID'] = "";
+      window.localStorage['passwordTouchID'] = "";
 		}
 	}
 
@@ -59,14 +59,18 @@ angular.module('starter.controllers', ['ionic'])
 
 	$ionicSideMenuDelegate.canDragContent(false);
 
-	$scope.guardarURL = function(datosServidor) {
-  	var posicion = datosServidor.servidor.indexOf('http://');
+  $scope.datosServidor = {};
+  $scope.verURL = false;
+
+	$scope.guardarURL = function(servidor) {
+  	var posicion = servidor.indexOf('http://');
+  	$rootScope.url = "";
   	if (posicion == 0) {
-    	$rootScope.url = datosServidor.servidor;
-    	$state.go("app.playlists");
+    	$rootScope.url = servidor;
+    	window.localStorage['url'] = $rootScope.url;
   	} else if (posicion == -1) {
-    	$rootScope.url = 'http://' + datosServidor.servidor;
-    	$state.go("app.playlists");
+    	$rootScope.url = 'http://' + servidor;
+    	window.localStorage['url'] = $rootScope.url;
   	} else {
     	var alertPopup = $ionicPopup.alert({
 				title: 'Error en la url',
@@ -74,6 +78,7 @@ angular.module('starter.controllers', ['ionic'])
 				okText: 'Aceptar',
 				okType: 'button-assertive'
 			});
+			$scope.verURL = false;
   	}
 
 
@@ -90,13 +95,9 @@ angular.module('starter.controllers', ['ionic'])
     	});
     }
 
-    $scope.comprobarPlataforma = function() {
-		$rootScope.platform = $cordovaDevice.getPlatform();
-		if ($rootScope.platform == "Android") {
-			return false;
-		} else {
-			return true;
-		}
+  $scope.comprobarPlataforma = function() {
+    $rootScope.platform = 'Android';
+		return false;
 	}
 
 	$scope.comprobarInicio = function() {
@@ -111,7 +112,9 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.loguearse = function(){
 		//Voy a comprobar si tiene soporte para Touch ID
 
+		$scope.guardarURL($scope.datosUsuario.servidor);
 		if ($rootScope.platform != "Android"){
+  		window.alert("Entro dentro del if");
 		$cordovaTouchID.checkSupport().then(function() {
 			//Si el usuario tiene soporte activamos el menú lateral
 			$rootScope.dedo = true;
@@ -154,6 +157,7 @@ angular.module('starter.controllers', ['ionic'])
 
 	$scope.nombreDelUsuario = window.localStorage['nombre'] || "";
 	$scope.contrasenaDelUsuario = window.localStorage['contrasena'] || "";
+	$scope.url = window.localStorage['url'] || "";
 
 	$scope.showConfirm = function() {
 			var confirmPopup = $ionicPopup.confirm({
@@ -202,6 +206,7 @@ angular.module('starter.controllers', ['ionic'])
 						$rootScope.contextoUsuario = (info.userpictureurl).substr(posicionContexto, (info.userpictureurl).indexOf("/user") - posicionContexto);
 						obtenerCurso(data.token, info.userid);
 						$state.go("app.cursos");
+						$scope.verURL = false;
 					});
 				}else {
 					var alertPopup = $ionicPopup.alert({
@@ -479,7 +484,7 @@ angular.module('starter.controllers', ['ionic'])
 		$ionicSideMenuDelegate.toggleLeft();
   	}
 
-  	$scope.htmlToPlaintext = function(text) {
+  $scope.htmlToPlaintext = function(text) {
 		return String(text).replace(/<[^>]+>/gm, '');
 	}
 
@@ -499,7 +504,7 @@ angular.module('starter.controllers', ['ionic'])
 		$scope.modal.remove()
 	};
 
-  	$scope.gestionUsuarios = function() {
+  $scope.gestionUsuarios = function() {
 
     $ionicActionSheet.show({
       	//titleText: 'Opciones',
@@ -520,21 +525,21 @@ angular.module('starter.controllers', ['ionic'])
     });
   	};
 
-  	$scope.nuevoContacto = function(id) {
-	  	$ionicLoading.show({
-	    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Añadiendo contacto...'
-		});
-	  	$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_create_contacts&moodlewsrestformat=json&userids[0]=' + id).
-					success(function(resultado) {
-						$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
-							success(function(dataContactos) {
-								$rootScope.contactos = dataContactos;
-								$rootScope.contactosTotal = $rootScope.contactos.online.concat($rootScope.contactos.offline);
-								hide();
-							});
-						$scope.closeModal();
-				});
-  	};
+	$scope.nuevoContacto = function(id) {
+  	$ionicLoading.show({
+    	template: '<i class="icon ion-loading-c" style="font-size:64px;"></i></br>Añadiendo contacto...'
+	});
+  	$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_create_contacts&moodlewsrestformat=json&userids[0]=' + id).
+				success(function(resultado) {
+					$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=core_message_get_contacts&moodlewsrestformat=json').
+						success(function(dataContactos) {
+							$rootScope.contactos = dataContactos;
+							$rootScope.contactosTotal = $rootScope.contactos.online.concat($rootScope.contactos.offline);
+							hide();
+						});
+					$scope.closeModal();
+			});
+	};
 
   	$scope.eliminarContacto = function(id) {
 	  	$ionicLoading.show({
@@ -958,13 +963,13 @@ angular.module('starter.controllers', ['ionic'])
 
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
-  	}
+  }
 
-  	var hide = function(){
-    	$ionicLoading.hide();
-	  };
+	var hide = function(){
+  	$ionicLoading.hide();
+  };
 
-  	$scope.htmlToPlaintext = function(text) {
+  $scope.htmlToPlaintext = function(text) {
 		return String(text).replace(/<[^>]+>/gm, '');
 	}
 
@@ -976,6 +981,7 @@ angular.module('starter.controllers', ['ionic'])
 			return text;
 		};
 	}
+
 	$scope.mensajeEditado = function(text) {
 		var posicion = String(text).indexOf("(Editado");
 		if (posicion > 0) {
@@ -1031,10 +1037,10 @@ angular.module('starter.controllers', ['ionic'])
 	}
 
 
-  	$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forums_by_courses&moodlewsrestformat=json&courseids[0]=' + $rootScope.data.id).
-			success(function(foros) {
-				$rootScope.forosDelCurso = foros;
-			});
+	$http.get($rootScope.url + '/webservice/rest/server.php?wstoken=' + $rootScope.token + '&wsfunction=local_mobile_mod_forum_get_forums_by_courses&moodlewsrestformat=json&courseids[0]=' + $rootScope.data.id).
+		success(function(foros) {
+			$rootScope.forosDelCurso = foros;
+  });
 
 	$scope.verMensajes = function(id, nombre) {
 		$ionicLoading.show({

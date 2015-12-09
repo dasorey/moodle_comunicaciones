@@ -44,23 +44,23 @@
 
 				<ion-item ng-repeat="curso in teoria" ng-if="$index > 2" style="padding:0px; border: none;">
 
-					<div class="item item-divider" id="{{curso.name}}" ng-if="curso.modules[0] != null" ng-click="verUnidad(curso.id)" style="background-color: white; border-left: 7px solid #279DCB; margin-bottom: 1px;">
+					<div class="item item-divider" id="{{curso.name}}" ng-if="curso.modules[0] != null" ng-click="verUnidad(curso.id)" style="background-color: white; border-left: 7px solid #0e33a5; margin-bottom: 1px;">
 
 						<div class="item-text-wrap" style="width:85% !important; display: inline-block;">
-							<p style="text-align: left; font-family: Roboto_light;   line-height: 60px;"><i class="md md-turned-in-not md-1x" style="color: #279DCB; font-size: 20px;"></i> <span style="color: #279DCB; font-size: 20px;">{{unidad(curso.name)}}:</span><!--<br><span style="color: #A8A8A8; font-size: 1.2em;">- {{tituloUnidad(curso.name)}}</span>--></p>
+							<p style="text-align: left; font-family: Roboto_light;   line-height: 60px;"><i class="md md-turned-in-not md-1x" style="color: #0e33a5; font-size: 20px;"></i> <span style="color: #0e33a5; font-size: 20px;">{{unidad(curso.name)}}:</span><!--<br><span style="color: #A8A8A8; font-size: 1.2em;">- {{tituloUnidad(curso.name)}}</span>--></p>
 
 						</div>
 						<div style="width:15%; display: inline-block;" ng-if="!(unidadMostrar == curso.id)">
-							<i class="md md-keyboard-arrow-down md-2x" style="color: #279DCB;"></i>
+							<i class="md md-keyboard-arrow-down md-2x" style="color: #0e33a5;"></i>
 						</div>
 						<div style="width:15%; display: inline-block;" ng-if="(unidadMostrar == curso.id)">
-							<i class="md md-keyboard-arrow-up md-2x" style="color: #279DCB;"></i>
+							<i class="md md-keyboard-arrow-up md-2x" style="color: #0e33a5;"></i>
 						</div>
 					</div>
 
 					<ion-item ng-repeat="celda in curso.modules" class="celda_curso" style="min-height: 60px; margin-bottom: 1px;" ng-click="abrirContenido(celda.url)" ng-if="(unidadMostrar == curso.id)" >
 						<span class="icon_lateral_contenido">
-						<i ng-class="getClass(celda.modname)" style="color:#88C9E2; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
+						<i ng-class="getClass(celda.modname)" style="color:#0e33a5; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
 						</span>
 						<span style="display:inline-block; margin-left: 17%; border-width: 0px; background-color:transparent !important; width: 83%;" class="item item-text-wrap">
 						<span class="contenido_curso">{{celda.name}} <i class="md md-done" style="font-size: 1.6em; color: #9AC142; position: absolute; right: 10px;" ng-if="comprobarCompleto(celda.id)"></i></span></span>
@@ -72,7 +72,7 @@
 			<ion-list ng-show="color[1]" has-bouncing="false">
 				<ion-item ng-repeat="foro in foros.modules" class="celda_curso" style="min-height:60px; min-width: 100px;  margin-bottom: 1px;" ng-click="abrirContenido(foro.url)">
 					<span class="icon_lateral_contenido">
-						<i ng-class="getClass(foro.modname)" style="color:#88C9E2; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
+						<i ng-class="getClass(foro.modname)" style="color:#0e33a5; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
 					</span>
 					<span style="display:inline-block; margin-left: 17%; border-width: 0px; background-color:transparent !important; width: 100%;" class="item item-text-wrap">
 					<span class="contenido_curso">{{foro.name}}</span></span>
@@ -82,7 +82,7 @@
 			<ion-list ng-show="color[2]">
 				<ion-item ng-repeat="recursos in recursos.modules" class="celda_curso" style="min-height:60px; min-width: 100px;  margin-bottom: 1px;" ng-click="abrirContenido(recursos.url)">
 					<span class="icon_lateral_contenido">
-						<i ng-class="getClass(recursos.modname)" style="color:#88C9E2; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
+						<i ng-class="getClass(recursos.modname)" style="color:#0e33a5; position:absolute; top:40%; left:21%; font-size:2.5em;"></i>
 					</span>
 					<span style="display:inline-block; margin-left: 17%; border-width: 0px; background-color:transparent !important; width: 100%;" class="item item-text-wrap">
 					<span class="contenido_curso">{{recursos.name}}</span></span>
